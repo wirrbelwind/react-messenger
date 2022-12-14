@@ -1,0 +1,41 @@
+@import 'reset';
+@import 'fonts';
+@import 'variables';
+
+// SETTINGS
+body {
+	background-color: rgb(24, 96, 138);
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1;
+	color: white;
+	font-weight: 500;
+}
+
+
+
+.wrapper {
+	overflow: hidden;
+	display: flex;
+	align-items: stretch;
+	height: 100vh;
+}
+
+// .container {
+// 	max-width: 1440px;
+// 	padding: 0 80px;
+// 	margin: 0 auto;
+// }
+
+// __sidebar+main
+
+
+.resizer {
+	width: 6px;
+	cursor: col-resize;
+	background-color: rgb(88 125 147);
+
+	&:hover {
+		background-color: rgb(138, 161, 175);
+	}
+}

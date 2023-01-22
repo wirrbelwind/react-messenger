@@ -1,4 +1,4 @@
-import { IGroupChat } from "../Interfaces/IChat";
+import { IGroupChat } from "../Models/IChat";
 
 export function isGroupChat(object: unknown): object is IGroupChat {
 	return Object.prototype.hasOwnProperty.call(object, "id") &&

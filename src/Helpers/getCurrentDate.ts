@@ -1,6 +1,21 @@
-export default function getCurrentDate() {
-	const dt = new Date();
-	const padL = (nr:number, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
+export interface IGetCurrentDate {
+	year: number
+	month: number
+	day: number
+	hour: number
+	minute: number
+	second: number
+}
 
-	return `${padL(dt.getDate())}.${padL(dt.getMonth() + 1)}.${dt.getFullYear()} ${padL(dt.getHours())}:${padL(dt.getMinutes())}`
+export default function getCurrentDate(): IGetCurrentDate {
+	var currentdate = new Date();
+	return {
+		year: currentdate.getFullYear(),
+		month: currentdate.getMonth(),
+		day: currentdate.getDate(),
+
+		hour: currentdate.getHours(),
+		minute: currentdate.getMinutes(),
+		second: currentdate.getSeconds(),
+	}
 }

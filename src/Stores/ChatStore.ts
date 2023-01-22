@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { IDMChat, IGroupChat } from "../Interfaces/IChat";
-import { IMessage } from "../Interfaces/IMessage";
-import { IUpdateUser, IUser } from "../Interfaces/IUser";
+import { IDMChat, IGroupChat } from "../Models/IChat";
+import { IMessage } from "../Models/IMessage";
+import {  IUser } from "../Models/IUser";
 
 export class ChatStore {
 	constructor() { makeObservable(this) }
@@ -38,7 +38,7 @@ export class ChatStore {
 	@action setParty(newParty: IUser[]) {
 		this.party = newParty
 	}
-	@action updateParty(newParty: IUpdateUser[]) {
+	@action updateParty(newParty: Partial<IUser>[]) {
 		newParty.forEach(item => {
 			for (let j = 0; j < this.party.length; j++)
 				if (item.id === this.party[j].id) {

@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { IDMChat, IGroupChat } from "../Interfaces/IChat";
+import { IDMChat, IGroupChat } from "../Models/IChat";
 
 export class ChatListStore {
 	constructor() { makeObservable(this) }

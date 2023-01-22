@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-
-const PREFIX = 'telegram-clone-'
+import { PREFIX } from "../Config/config"
 
 export default function useLocalStorage(key: string, initialValue: Function | string | null = null) {
 	const prefixedKey = PREFIX + key

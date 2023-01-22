@@ -1,6 +1,9 @@
-import { PREFIX } from "../Consts";
-import { IDMChat, IGroupChat } from "../Interfaces/IChat";
-import { IUser } from "../Interfaces/IUser";
+import { useNavigate } from "react-router";
+import { PREFIX } from "../Config/config";
+import getCurrentDate from "../Helpers/getCurrentDate";
+import { IDMChat, IGroupChat } from "../Models/IChat";
+import { IUser } from "../Models/IUser";
+import { signupForm } from "../Models/SignupData";
 import AuthService from "../Services/AuthService";
 import ChatService from "../Services/ChatService";
 import { ActualMessageStore } from "../Stores/ActualMessageStore";
@@ -9,37 +12,84 @@ import { ChatListStore } from "../Stores/ChatListStore";
 import { ChatStore } from "../Stores/ChatStore";
 import { SearchStore } from "../Stores/SearchStore";
 import { UserStore } from "../Stores/UserStore";
+import { IControllerResponse } from "./IControllerResponse";
 
 export class Controller {
 	constructor(
-		readonly userStore: UserStore,
-		readonly appStore: AppStore,
-		readonly chatListStore: ChatListStore,
-		readonly chatStore: ChatStore,
-		readonly searchStore: SearchStore,
-		readonly actualMessageStore: ActualMessageStore,
+		readonly appStore = new AppStore(),
+		readonly userStore = new UserStore(),
+		readonly chatListStore = new ChatListStore(),
+		readonly chatStore = new ChatStore(),
+		readonly searchStore = new SearchStore(),
+		readonly actualMessageStore = new ActualMessageStore(),
 	) {
 	}
-	async checkAuth() {
-		if (!localStorage.getItem(PREFIX + 'token')) return;
-
+	async checkAuth(): Promise<IControllerResponse> {
 		this.appStore.setLoading(true)
 		try {
-			const response = await AuthService.toRefreshToken()
+			const response = await AuthService.refreshAccessToken()
 
-			localStorage.setItem(PREFIX + 'token', response.data.accessToken);
-
-			this.userStore.setUser(response.data.user);
+			this.userStore.setUser(response.data);
 			this.appStore.setAuth(true)
-		} catch (e: any) {
-			console.log(e.response.data.message)
-		} finally {
+		}
+		catch (e: any) {
+			return { error: e.response?.data.message || 'Ошибка подключения к серверу' }
+		}
+		finally {
+			console.log(this.userStore.getUser);
+			console.log(this.appStore.getIsAuth);
 			this.appStore.setLoading(false)
+
+		}
+		return { success: true }
+	}
+	async login(login: string, password: string): Promise<IControllerResponse> {
+		try {
+			const response = await AuthService.login(login, password)
+			this.userStore.setUser(response.data)
+			this.appStore.setAuth(true)
+			console.log(response.data)
+
+		} catch (e: any) {
+			return { error: e.response.data.message }
+		}
+		return { success: true }
+	}
+
+	async signup(signupData: signupForm): Promise<IControllerResponse> {
+		try {
+			const response = await AuthService.registration(signupData)
+			this.userStore.setUser(response.data)
+			this.appStore.setAuth(true)
+
+		} catch (e: any) {
+			return { error: e.response.data.message }
+		}
+		return { success: true }
+	}
+	async logout() {
+		try {
+			console.log('logout starts')
+
+			const response = await AuthService.logout()
+			if (response.data.success) {
+				console.log('success');
+
+				this.userStore.removeUser()
+				this.appStore.setAuth(false)
+			}
+		}
+		catch (e) {
+			console.log(e);
+		}
+		finally {
+			console.log(this.appStore.getIsAuth);
+			console.log(this.userStore.getUser);
+			console.log('logout completed')
 		}
 	}
-	async login(login: string, password: string) {
 
-	}
+
 	// chat store
 	async openChat(chat: IDMChat | IGroupChat) {
 		//remove states of previous chat
@@ -64,7 +114,7 @@ export class Controller {
 
 	// actual message store
 	async sendMessage() {
-		const now = new Date()
+		const currentDate = getCurrentDate()
 		const text = this.actualMessageStore.getText
 		const attachs = this.actualMessageStore.getAttachs
 		const chatID = this.chatStore.getChat.id

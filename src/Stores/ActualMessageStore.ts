@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { IMessage } from "../Interfaces/IMessage";
+import { IMessage } from "../Models/IMessage";
 
 export class ActualMessageStore {
 	constructor() { makeObservable(this) }

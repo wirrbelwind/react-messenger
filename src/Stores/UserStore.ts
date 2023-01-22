@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { IUpdateUser, IUser } from "../Interfaces/IUser";
+import { IUser } from "../Models/IUser";
 
 export class UserStore {
 	constructor() { makeObservable(this) }
@@ -16,7 +16,7 @@ export class UserStore {
 	@action  setUser(newUser: IUser) {
 		this.user = newUser
 	}
-	@action updateUser(data: IUpdateUser) {
+	@action updateUser(data: Partial<IUser>) {
 		Object.assign(this.user, data)
 	}
 }

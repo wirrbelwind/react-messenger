@@ -1,23 +1,38 @@
-export interface ChatBriefing {
+import { User } from "firebase/auth"
+import { DocumentReference } from "firebase/firestore"
+export interface IMessage {
 	id: string
-	users: string[]
-	type: 'direct' | 'group'
-	group?: GroupInfo
-	companion?: Companion
-	lastMessage?: Message
+	text: string
+	senderID: DocumentReference
+	status: 'read' | 'unread'
+	timestamp: { seconds: number }
 }
-interface GroupInfo {
-	descr?: string
-	ownerID: string
+export interface RawChat {
+	id: string
+	type: 'direct' | 'group'
+	usersID: DocumentReference[]
+	group?: GroupChatData
+	companion?: PrivateChatData
+	lastMessage?: IMessage
+}
+export interface IGroupChat extends GroupChatData, Omit<RawChat, 'companion' | 'group'> {
+	type: 'group'
+}
+export interface IPrivateChat extends PrivateChatData, Omit<RawChat, 'companion' | 'group'> {
+	type: 'direct'
+}
+export interface PrivateChatData {
+	companionID: string
 	name: string
 	photoURL?: string
 }
-interface Companion {
-	photoURL: string
+export interface GroupChatData {
+	descr?: string
 	name: string
+	ownerID: DocumentReference
+	photoURL: string
 }
-export interface Message {
-	id: string
-	text: string
-	senderID: string
-}
+export type IChat = IPrivateChat | IGroupChat
+
+
+

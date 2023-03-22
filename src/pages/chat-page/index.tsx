@@ -1,39 +1,40 @@
-import { Grid, Typography } from "@mui/material";
-import { ChatBar, chatListModel } from "entities/chat-list";
-import { userModel } from "entities/user";
+import { Grid } from "@mui/material";
 import { Sidebar } from "widgets/sidebar";
-import axios from 'axios'
+import { ChatList } from "widgets/chat-list";
+import { useParams } from "react-router";
+import React from "react";
+import { ChatHeader } from "widgets/chat-header/ui";
+import { ChatMessages } from "widgets/chat-messages/ui";
+
+const MemoizedSidebar = React.memo(Sidebar)
 
 export const ChatPage = () => {
-	const chatList = chatListModel.useList()
-
-	if (chatList.isSuccess) console.log(chatList.data);
-	if (chatList.isError) console.log(chatList.error);
-	if (chatList.isLoading) console.log('loading');
+	const { chatID } = useParams<'chatID'>()
 
 	return (
 		<Grid container>
 
-			<Grid item xs={3}>
-				{/* <Sidebar
+			<Grid item xs={4}>
+				<MemoizedSidebar
 					title="Chats"
 					withBurger={true}
-					withBackButton={true}
-					withSearch={true}
-					body={chatList}
-				/> */}
-				{chatList.isError && <h1>error</h1>}
-				{chatList.isLoading && <h1>loading</h1>}
+					withBackButton={false}
+					withSearch={false}
+					body={<ChatList />}
+				/>
 
-				{/* {chatList.isSuccess &&
-					chatList.data.map(chat => <ChatBar />)
-				} */}
 			</Grid>
 
 			<Grid item xs={7}>
-				chat
+				{chatID &&
+					<>
+						<ChatHeader chatID={chatID} />
+						<ChatMessages chatID={chatID} />
+					</>
+				}
+				{!chatID && 'nothing'}
 			</Grid>
 
-		</Grid>
-	);
-};
+		</Grid >
+	)
+}

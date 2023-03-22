@@ -1,8 +1,5 @@
-import { Box, Button, Drawer, IconButton, Input, TextField, Typography } from "@mui/material";
-import PathRoutes from "pages/routeConfig";
-import { actualChatModel } from "entities/actual-chat/chat";
-import { chatListModel } from "entities/chat-list";
-import { useState } from "react";
+import { Box, Drawer, IconButton, Input, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowButton } from "shared/ui/ArrowButton";
 import { BurgerButton } from "shared/ui/BurgerButton";
@@ -15,6 +12,11 @@ interface Props {
 	body?: React.ReactNode
 }
 export const Sidebar = ({ title, withSearch, withBurger, withBackButton, body }: Props) => {
+
+	useEffect(() => {
+		console.log('RERENDERED');
+	}, [])
+
 	const history = useNavigate()
 
 	// burger menu state
@@ -42,10 +44,10 @@ export const Sidebar = ({ title, withSearch, withBurger, withBackButton, body }:
 				<ArrowButton direction="left" onClick={() => history(-1)} />
 			}
 			{
-				title && <Typography>{title}</Typography>
+				title && <Typography >{title}</Typography>
 			}
 			{
-				withSearch && <Input type='text' placeholder="Search" />
+				withSearch && <Input type='text' placeholder="Search" fullWidth />
 			}
 			{
 				body

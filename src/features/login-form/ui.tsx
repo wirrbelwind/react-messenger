@@ -14,7 +14,6 @@ export const LoginForm = () => {
 		e.preventDefault()
 
 		signin.mutate({ email: login.value, pwd: pwd.value })
-		console.log('submit');
 		
 	}
 

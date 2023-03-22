@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { authModule } from "shared/firebase";
+import { useEffect } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router'
+import routeConfig from 'shared/consts/routeConfig'
+import { authModule } from 'shared/firebase'
 
 export const useUser = () => {
-	const [user, setUser] = useState(authModule.currentUser);
+	const [user, loading, error] = useAuthState(authModule)
+
+	const history = useNavigate()
+
 	useEffect(() => {
-		const unsubscribe = authModule.onAuthStateChanged((user) => {
-			setUser(user);
-		});
+		if (!user && !loading && !error) history(routeConfig.public.SIGNIN)
+	}, [user])
 
-		return () => {
-			unsubscribe();
-		};
-	}, []);
-
-	return user
+	return [user, loading, error]
 }

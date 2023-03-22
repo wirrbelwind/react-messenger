@@ -1,59 +1,64 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material"
+import { Link } from "react-router-dom"
 import { getUser } from "shared/firebase"
-import { ChatBriefing } from "shared/types"
-import { isDirectChat, isGroupChat } from "../lib"
+import { formatDate } from "shared/libs/datetime/formatDate"
+import { IChat } from "shared/types"
+import { isGroupChat, isPrivateChat } from "../lib"
 
 interface Props {
-	viewerID: number
-	chat: ChatBriefing
+	viewerID?: string | null
+	chat: IChat
+	handleClick?: React.MouseEventHandler<HTMLLIElement>
 }
 
-export const ChatBar = ({ viewerID, chat }: Props) => {
-	const data = {
-		name: null,
-		photoURL: null,
-		lastMessage: null,
-		timestamp: null
-	}
+export const ChatBar = ({ viewerID, chat, handleClick }: Props) => {
+	const isGroup = isGroupChat(chat)
+	const isPrivate = isPrivateChat(chat)
 
-	
-	return (<h1>123</h1>
-		// <ListItem alignItems="flex-start">
-		// 	{/* Avatar column */}
-		// 	<ListItemAvatar>
-		// 		<Avatar alt={chat.id} src={chat.id} />
-		// 	</ListItemAvatar>
+	return (
+		<Link to={`/${chat.id}`}>
+			<ListItem
+				sx={{ ":hover": { backgroundColor: 'lightgray' } }}
+				onClick={handleClick} alignItems="flex-start"
+			>
 
-		// 	{/* column of primary text: name of chat and text of message */}
-		// 	<ListItemText
-		// 		primary={name}
-		// 		secondary={
-		// 			lastMessage &&
-		// 			<Typography
-		// 				sx={{ display: 'inline' }}
-		// 				component="span"
-		// 				variant="body2"
-		// 				color="text.primary"
-		// 			>
-		// 				{
-		// 					lastMessage.client_id === viewerID && 'You: '
-		// 				}
-		// 				{
-		// 					(lastMessage.client_id !== viewerID && type === 'group') &&
-		// 					lastMessage.sender_name
-		// 				}
-		// 				{lastMessage.text_content}
-		// 			</Typography>
+				{/* Avatar column */}
+				<ListItemAvatar>
+					<Avatar alt={chat.id} src={chat.photoURL} />
+				</ListItemAvatar>
 
-		// 		}
-		// 	/>
-		// 	{
-		// 		lastMessage &&
-		// 		<ListItemText
-		// 			primary={lastMessage.send_date}
-		// 			secondary={unreadCount}
-		// 		/>
-		// 	}
-		// </ListItem>
+				{/* column of primary text: name of chat and text of message */}
+				<ListItemText
+					primary={chat.name}
+
+					secondary={
+						chat.lastMessage &&
+						<Typography
+							sx={{ display: 'inline' }}
+							component="span"
+							variant="body2"
+							color="black"
+						>
+							{
+								chat.lastMessage.senderID.id === viewerID
+								&&
+								'You: '
+							}
+
+							{chat.lastMessage.text}
+						</Typography>
+
+					}
+				/>
+				{chat.lastMessage &&
+					<ListItemText
+						primary={formatDate(chat.lastMessage?.timestamp.seconds)}
+						secondary={chat.lastMessage?.status}
+					/>
+				}
+
+			</ListItem>
+		</Link>
+
 	)
 }

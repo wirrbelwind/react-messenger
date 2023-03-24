@@ -1,5 +1,6 @@
 import { Box, ListItem, ListItemText } from "@mui/material"
 import { FC } from "react"
+import { formatDate } from "shared/libs/formatDate"
 import { IMessage } from "shared/types"
 
 interface MessageProps {
@@ -8,14 +9,14 @@ interface MessageProps {
 }
 export const Message: FC<MessageProps> = ({ message, onContextMenu }) => {
 	return (
-		<ListItem onContextMenu={onContextMenu}>
+		<ListItem
+			onContextMenu={onContextMenu}
+			sx={{ border: '1px solid black', borderRadius: '7px', padding: '4px' }}
+		>
 			<ListItemText
 				primary={`
-				${message.id}
-				${message.senderID}
-				${message.status}
 				${message.text}
-				${message.timestamp.seconds}
+				${formatDate(message.timestamp.seconds)}
 				`}
 			/>
 

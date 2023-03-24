@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router';
 import { withProviders } from './providers';
 import './styles/index.scss';
 import { QueryClient } from '@tanstack/react-query'
+import { onAuthStateChanged } from 'firebase/auth';
+import { authModule } from 'shared/firebase';
 
 const queryClient = new QueryClient()
 /*
@@ -27,7 +29,9 @@ new QueryClient({
 })
 */
 
+
 const App = () => {
+	
 
 	return (
 		<Routing />

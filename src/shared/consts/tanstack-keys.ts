@@ -12,5 +12,8 @@ export const tanstackKeys = {
 	},
 	MESSAGES: {
 		GET: (chatID: string) => ['messages', 'get', chatID]
+	},
+	CHAT: {
+		GET: (chatID: string) => ['chat', 'get', chatID]
 	}
-}
+} as const

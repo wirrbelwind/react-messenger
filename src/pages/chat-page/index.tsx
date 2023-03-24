@@ -1,15 +1,19 @@
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { Sidebar } from "widgets/sidebar";
 import { ChatList } from "widgets/chat-list";
 import { useParams } from "react-router";
 import React from "react";
-import { ChatHeader } from "widgets/chat-header/ui";
-import { ChatMessages } from "widgets/chat-messages/ui";
+import { ChatHeader } from "widgets/actual-chat/header/ui";
+import { ChatMessages } from "widgets/actual-chat/messages/ui";
+import { CreateMessage } from "widgets/actual-chat/create-message/ui";
+import { userModel } from "entities/user";
 
 const MemoizedSidebar = React.memo(Sidebar)
 
 export const ChatPage = () => {
 	const { chatID } = useParams<'chatID'>()
+
+	const logout = userModel.logout()
 
 	return (
 		<Grid container>
@@ -26,10 +30,13 @@ export const ChatPage = () => {
 			</Grid>
 
 			<Grid item xs={7}>
+				<Button onClick={() => logout.mutate()}>LOGOUT</Button>
+
 				{chatID &&
 					<>
 						<ChatHeader chatID={chatID} />
 						<ChatMessages chatID={chatID} />
+						<CreateMessage chatID={chatID} />
 					</>
 				}
 				{!chatID && 'nothing'}

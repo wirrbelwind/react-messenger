@@ -13,5 +13,5 @@ export const useUser = () => {
 		if (!user && !loading && !error) history(routeConfig.public.SIGNIN)
 	}, [user])
 
-	return [user, loading, error]
+	return {user, loading, error}
 }

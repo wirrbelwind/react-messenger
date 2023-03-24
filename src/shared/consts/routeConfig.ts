@@ -7,4 +7,4 @@ export default {
 		CHAT: '/:chatID?',
 		SETTINGS: 'settings',
 	}
-}
+} as const

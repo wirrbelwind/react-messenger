@@ -18,22 +18,12 @@ export const createUser = () => useMutation<unknown, unknown, { email: string, p
 
 export const signin = () => useMutation<unknown, unknown, { email: string, pwd: string }>
   ({
-    mutationFn: ({ email, pwd }) => signInWithEmailAndPassword(authModule, email, pwd)
-      .then(res => res.user)
-      .catch(reason => {
-        throw new Error(reason.message)
-      }),
-
+    mutationFn: ({ email, pwd }) => signInWithEmailAndPassword(authModule, email, pwd),
     mutationKey: tanstackKeys.USER.SIGNIN
   })
 
 export const logout = () => useMutation({
-  mutationFn: () => signOut(authModule)
-    .then()
-    .catch(reason => {
-      throw new Error(reason.message)
-    }),
-
+  mutationFn: () => signOut(authModule),
   mutationKey: tanstackKeys.USER.SIGN_OUT
 })
 

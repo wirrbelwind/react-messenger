@@ -10,8 +10,10 @@ export const InputMessage: FC<Props> = ({ input }) => {
 
 	return (
 		<TextField
+			fullWidth
 			value={input.value}
 			onChange={input.onChange}
+			placeholder={'Type a message...'}
 		/>
 	)
 }

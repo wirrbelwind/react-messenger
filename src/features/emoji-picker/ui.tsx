@@ -55,7 +55,7 @@ export const EmojiPicker: FC<EmojiPickerProps> = ({ input }) => {
 			>
 				<Picker
 					data={emojiDataSet}
-					onEmojiSelect={(emoji: string) => input.setValue(text => text + emoji.native)}
+					onEmojiSelect={(emoji) => input.setValue(text => text + emoji.native)}
 				/>
 			</Popover>
 		</>

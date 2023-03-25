@@ -7,10 +7,10 @@ import { IconButton, IconButtonProps } from '@mui/material';
 interface Props extends IconButtonProps {
 	direction: 'left' | 'right' | 'up' | 'down'
 }
-export const ArrowButton = ({ direction, children }: Props) => {
+export const ArrowButton = ({ direction, children, ...props }: Props) => {
 
 	return (
-		<IconButton>
+		<IconButton {...props}>
 			{direction == 'left' && <NavigateBeforeIcon />}
 			{direction == 'right' && <NavigateNextIcon />}
 			{direction == 'up' && <ExpandMoreIcon />}

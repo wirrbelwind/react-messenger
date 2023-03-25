@@ -1,7 +1,7 @@
 import { Box, ListItem, ListItemText } from "@mui/material"
 import { FC } from "react"
 import { formatDate } from "shared/libs/formatDate"
-import { IMessage } from "shared/types"
+import { IMessage } from "shared/libs/types"
 
 interface MessageProps {
 	message: IMessage
@@ -19,8 +19,6 @@ export const Message: FC<MessageProps> = ({ message, onContextMenu }) => {
 				${formatDate(message.timestamp.seconds)}
 				`}
 			/>
-
-
 		</ListItem>
 	)
 }

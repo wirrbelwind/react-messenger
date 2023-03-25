@@ -22,7 +22,6 @@ export async function fetchActualChat(chatID: string): Promise<Omit<IChat, 'last
 		throw new Error('uid is null')
 	}
 	console.log('UID: ', uid);
-	alert(uid)
 
 	const chatSnapshot = await getDoc(doc(db, 'chats', chatID))
 

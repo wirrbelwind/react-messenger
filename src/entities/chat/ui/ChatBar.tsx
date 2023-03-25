@@ -2,8 +2,7 @@ import { Avatar, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui
 import { Link } from "react-router-dom"
 import { getUser } from "shared/firebase"
 import { formatDate } from "shared/libs/formatDate"
-import { IChat } from "shared/types"
-import { isGroupChat, isPrivateChat } from "../lib"
+import { IChat, isGroupChat, isPrivateChat } from "shared/libs/types"
 
 interface Props {
 	viewerID?: string | null

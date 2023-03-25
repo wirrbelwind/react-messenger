@@ -12,8 +12,9 @@ interface Props {
 export const CreateMessage: FC<Props> = ({ chatID }) => {
 	const input = useInput<string>('')
 
-	const onSubmit = () => {
-		if (input.value) { alert(input.value) }
+	const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+		e.preventDefault()
+		if(input.value) { alert(input.value) }
 	}
 	return (
 		<Box
@@ -30,7 +31,11 @@ export const CreateMessage: FC<Props> = ({ chatID }) => {
 
 			<InputMessage input={input} />
 
-			<ArrowButton direction='right' type='submit' />
+			<ArrowButton
+				direction='right'
+				type='submit'
+				disabled={!input.value}
+			/>
 		</Box>
 
 	)

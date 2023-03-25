@@ -12,7 +12,7 @@ export async function fetchChatList() {
 	console.log('UID: ', uid);
 
 	let chats = await fetchChats(uid)
-	chats = await attachLastMsgToChats(chats)
+	chats = await Promise.all(chats.map(ch => attachLastMsgToChat(ch)))
 
 	return chats
 }
@@ -92,25 +92,18 @@ async function fetchCompanion(chat: RawChat, viewerUID: string): Promise<Private
 	}
 	return companion
 }
-async function attachLastMsgToChats(chats: IChat[]): Promise<IChat[]> {
+async function attachLastMsgToChat(chat: IChat): Promise<IChat> {
 	const msgCollRef = collection(db, 'messages')
 
-	const updatedChats: IChat[] = await Promise.all(chats.map(async (chat) => {
-		const chatRef = doc(db, 'chats', chat.id)
+	const chatRef = doc(db, 'chats', chat.id)
 
-		//find messages
-		const messagesQuery = query(
-			msgCollRef,
-			where("chatID", "==", chatRef), orderBy("timestamp", "desc"), limit(1)
-		)
-		const messagesSnapshot = await getDocs(messagesQuery)
-		const lastMessage = messagesSnapshot.docs[0]?.data() as IMessage // get last message, if any
-		return { ...chat, lastMessage } // return updated chat object
-	}))
+	//find messages
+	const messagesQuery = query(
+		msgCollRef,
+		where("chatID", "==", chatRef), orderBy("timestamp", "desc"), limit(1)
+	)
+	const messagesSnapshot = await getDocs(messagesQuery)
+	const lastMessage = messagesSnapshot.docs[0]?.data() as IMessage // get last message, if any
 
-	return updatedChats
+	return { ...chat, lastMessage } // return updated chat object
 }
-
-
-
-

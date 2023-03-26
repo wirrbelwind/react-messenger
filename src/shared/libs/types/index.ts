@@ -6,7 +6,7 @@ export interface IMessage {
 	senderID: DocumentReference
 	chatID: DocumentReference
 	status: 'read' | 'unread'
-	timestamp: { seconds: number }
+	timestamp: { seconds: number, miliseconds: number }
 }
 export interface RawChat {
 	id: string
@@ -41,3 +41,6 @@ export function isGroupChat(chat: IChat | RawChat): chat is IGroupChat {
 export function isPrivateChat(chat: IChat | RawChat): chat is IPrivateChat {
 	return chat.type === 'direct'
 }
+
+export type IPendingMessage = Omit<IMessage, 'id'>
+

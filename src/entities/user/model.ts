@@ -2,17 +2,12 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { tanstackKeys } from "shared/consts/tanstack-keys";
 import { useEffect, useState } from "react";
-import { authModule } from "shared/firebase";
+import { authModule, getUser } from "shared/firebase";
 
 
 export const createUser = () => useMutation<unknown, unknown, { email: string, pwd: string }>
   ({
-    mutationFn: ({ email, pwd }) => createUserWithEmailAndPassword(authModule, email, pwd)
-      .then(res => res.user)
-      .catch(reason => {
-        throw new Error(reason.message)
-      }),
-
+    mutationFn: ({ email, pwd }) => createUserWithEmailAndPassword(authModule, email, pwd),
     mutationKey: tanstackKeys.USER.CREATE
   })
 
@@ -22,8 +17,12 @@ export const signin = () => useMutation<unknown, unknown, { email: string, pwd: 
     mutationKey: tanstackKeys.USER.SIGNIN
   })
 
-export const logout = () => useMutation({
-  mutationFn: () => signOut(authModule),
-  mutationKey: tanstackKeys.USER.SIGN_OUT
-})
+export const logout = () => {
+  const user = getUser()
 
+  return useMutation({
+    mutationFn: () => signOut(authModule),
+    mutationKey: tanstackKeys.USER.SIGN_OUT,
+    
+  })
+}

@@ -1,13 +1,15 @@
-import { Box, ListItem, ListItemText } from "@mui/material"
+import { Box, ListItem, ListItemText, ListItemIcon } from "@mui/material"
 import { FC } from "react"
 import { formatDate } from "shared/libs/formatDate"
-import { IMessage } from "shared/libs/types"
+import { IMessage, IPendingMessage } from "shared/libs/types"
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
 interface MessageProps {
-	message: IMessage
-	onContextMenu: React.MouseEventHandler<HTMLLIElement>
+	message: IMessage | IPendingMessage
+	onContextMenu?: React.MouseEventHandler<HTMLLIElement>
+	isPending?: boolean
 }
-export const Message: FC<MessageProps> = ({ message, onContextMenu }) => {
+export const Message: FC<MessageProps> = ({ message, onContextMenu, isPending = false }) => {
 	return (
 		<ListItem
 			onContextMenu={onContextMenu}
@@ -19,6 +21,7 @@ export const Message: FC<MessageProps> = ({ message, onContextMenu }) => {
 				${formatDate(message.timestamp.seconds)}
 				`}
 			/>
+			{isPending && <ListItemIcon><AccessTimeFilledIcon /></ListItemIcon>}
 		</ListItem>
 	)
 }

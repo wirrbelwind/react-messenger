@@ -7,9 +7,7 @@ import { formatRawChat } from "shared/libs/formatRawChat"
 
 export async function fetchChatList() {
 	const uid = getUser()?.uid
-	if (!uid) throw Error('uid is null')
-
-	console.log('UID: ', uid);
+	if (!uid) throw new Error('uid is null')
 
 	let chats = await fetchChats(uid)
 	chats = await Promise.all(chats.map(ch => attachLastMsgToChat(ch)))

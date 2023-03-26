@@ -11,7 +11,8 @@ export const tanstackKeys = {
 		GET: (chatID: string) => ['actualChat', 'get', chatID]
 	},
 	MESSAGES: {
-		GET: (chatID: string) => ['messages', 'get', chatID]
+		GET: (chatID: string) => ['messages', 'get', chatID],
+		SEND: (chatID: string) => ['messages', 'send', chatID]
 	},
 	CHAT: {
 		GET: (chatID: string) => ['chat', 'get', chatID]

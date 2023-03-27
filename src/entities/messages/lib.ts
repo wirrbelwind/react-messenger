@@ -8,7 +8,7 @@ export async function fetchMessages(chatID: string): Promise<IMessage[]> {
 	const msgQuery = query(
 		collection(db, 'messages'),
 		where('chatID', '==', chatDocRef),
-		orderBy("timestamp", "desc")
+		orderBy("timestamp", "asc")
 	)
 
 	const msgSnapshot = await getDocs(msgQuery)

@@ -14,6 +14,7 @@ export const Message: FC<MessageProps> = ({ message, onContextMenu, isPending = 
 		<ListItem
 			onContextMenu={onContextMenu}
 			sx={{ border: '1px solid black', borderRadius: '7px', padding: '4px' }}
+			
 		>
 			<ListItemText
 				primary={`

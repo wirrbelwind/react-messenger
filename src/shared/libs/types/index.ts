@@ -1,12 +1,12 @@
 import { User } from "firebase/auth"
-import { DocumentReference } from "firebase/firestore"
+import { DocumentReference, Timestamp } from "firebase/firestore"
 export interface IMessage {
 	id: string
 	text: string
 	senderID: DocumentReference
 	chatID: DocumentReference
 	status: 'read' | 'unread'
-	timestamp: { seconds: number, miliseconds: number }
+	timestamp: Timestamp
 }
 export interface RawChat {
 	id: string

@@ -27,8 +27,9 @@ export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
 			{
 				msgQueue && msgQueue[0].length !== 0 &&
 				msgQueue[0].map(msg => <Message
+					isPending={true}
 					message={msg}
-					key={msg.timestamp.miliseconds} />)
+					key={msg.timestamp.toMillis()} />)
 			}
 		</Box>
 	)

@@ -1,7 +1,7 @@
-import { useMutation, useQuery, UseQueryResult } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import { tanstackKeys } from "shared/consts/tanstack-keys"
 import { getUser } from "shared/firebase"
-import { IMessage } from "shared/libs/types"
+import { IMessage, IPendingMessage } from "shared/libs/types"
 import { fetchMessages, sendMessage } from "./lib"
 
 export const useMessages = (chatID: string): UseQueryResult<IMessage[]> => {
@@ -13,18 +13,19 @@ export const useMessages = (chatID: string): UseQueryResult<IMessage[]> => {
 }
 
 
-export function useCreateMessage() {
+export function useCreateMessage(chatID: string) {
+	const queryClient = useQueryClient()
+	return useMutation<
+		IMessage | undefined, //returns
+		unknown, // error
+		{ msg: IPendingMessage } // mutate vars
+	>({
+		mutationFn: ({ msg }) => sendMessage(msg),
+		mutationKey: tanstackKeys.MESSAGES.SEND(chatID),
 
-	return (chatID: string, text: string) => {
-		const timestamp = new Date()
-
-		return useMutation<
-			IMessage | undefined, //returns
-			unknown, // error
-			{ chatID: string, text: string } // mutate vars
-		>({
-			mutationFn: ({ chatID, text }) => sendMessage(chatID, text),
-			mutationKey: tanstackKeys.MESSAGES.SEND(chatID)
-		})
-	}
+		// effects
+		onSuccess(data, variables, context) {
+			 queryClient.invalidateQueries(tanstackKeys.MESSAGES.GET(chatID))
+		},
+	})
 }

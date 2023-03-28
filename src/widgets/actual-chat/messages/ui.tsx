@@ -6,11 +6,10 @@ import { IPendingMessage } from "shared/libs/types";
 
 interface ChatMessagesrProps {
 	chatID: string
-	msgQueue?: BehaviorSubject<IPendingMessage[]>
-	msgQueueState?: [IPendingMessage[], React.Dispatch<React.SetStateAction<IPendingMessage[]>>]
+	msgQueueState?: IPendingMessage[]
 }
 
-export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue, msgQueueState }) => {
+export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueueState }) => {
 
 	const messages = messagesModel.useMessages(chatID)
 	if (messages.isSuccess) console.log(messages.data);
@@ -25,7 +24,7 @@ export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue, msgQueu
 				/>)
 			}
 			{
-				msgQueueState && msgQueueState[0].map(msg => <Message
+				msgQueueState && msgQueueState.map(msg => <Message
 					isPending={true}
 					message={msg}
 					key={msg.timestamp.toMillis()} />)

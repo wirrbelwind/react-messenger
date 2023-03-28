@@ -13,15 +13,13 @@ import { ArrowButton } from "shared/ui/ArrowButton";
 
 interface Props {
 	chatID: string
-	msgQueue?: BehaviorSubject<IPendingMessage[]>
-	msgQueueState?: [IPendingMessage[], React.Dispatch<React.SetStateAction<IPendingMessage[]>>]
+	sendMsg: (newMsg: IPendingMessage) => void
 	withSubmitBtn?: boolean
 }
 
 export const CreateMessage: FC<Props> = ({
 	chatID,
-	msgQueue,
-	msgQueueState,
+	sendMsg,
 	withSubmitBtn = true
 }) => {
 	const input = useInput<string>('')
@@ -29,7 +27,7 @@ export const CreateMessage: FC<Props> = ({
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault()
 		const uid = getUser()?.uid
-		if (!input.value || !msgQueue || !uid) return;
+		if (!input.value || !uid) return;
 
 		// sendMessage(chatID, input.value)
 		const newMsg: IPendingMessage = {
@@ -40,8 +38,7 @@ export const CreateMessage: FC<Props> = ({
 			timestamp: Timestamp.now()
 		}
 
-		msgQueue.next([...msgQueue.value, newMsg])
-		msgQueueState?.[1](prev => [...prev, newMsg])
+		sendMsg(newMsg)
 
 		input.setValue('')
 	}

@@ -12,7 +12,6 @@ interface ChatMessagesrProps {
 export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueueState }) => {
 
 	const messages = messagesModel.useMessages(chatID)
-	if (messages.isSuccess) console.log(messages.data);
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'scroll' }}>

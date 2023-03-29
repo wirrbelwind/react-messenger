@@ -5,19 +5,19 @@ import { useEffect, useState } from "react";
 import { authModule, getUser } from "shared/firebase";
 
 
-export const createUser = () => useMutation<unknown, unknown, { email: string, pwd: string }>
+export const useCreateUser = () => useMutation<unknown, unknown, { email: string, pwd: string }>
   ({
     mutationFn: ({ email, pwd }) => createUserWithEmailAndPassword(authModule, email, pwd),
     mutationKey: tanstackKeys.USER.CREATE
   })
 
-export const signin = () => useMutation<unknown, unknown, { email: string, pwd: string }>
+export const useSignin = () => useMutation<unknown, unknown, { email: string, pwd: string }>
   ({
     mutationFn: ({ email, pwd }) => signInWithEmailAndPassword(authModule, email, pwd),
     mutationKey: tanstackKeys.USER.SIGNIN
   })
 
-export const logout = () => {
+export const useLogout = () => {
   const user = getUser()
 
   return useMutation({

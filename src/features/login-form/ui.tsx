@@ -7,14 +7,14 @@ export const LoginForm = () => {
 	const login = useInput<string>('')
 	const pwd = useInput<string>('')
 
-	const signin = userModel.signin()
-	const createUser = userModel.createUser()
+	const signin = userModel.useSignin()
+	const createUser = userModel.useCreateUser()
 
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
 
 		signin.mutate({ email: login.value, pwd: pwd.value })
-		
+
 	}
 
 	if (signin.isError) console.log('error', signin.error);
@@ -40,7 +40,7 @@ export const LoginForm = () => {
 				fullWidth
 				label='Password'
 			/>
-			{createUser.isError && <h1>{createUser.error.message}</h1>}
+			{createUser.isError && <h1>error</h1>}
 			{createUser.isLoading && <h1>lodaing</h1>}
 			{createUser.isSuccess && <h1>success</h1>}
 			<Button type='submit' fullWidth variant='contained'>Sign In</Button>

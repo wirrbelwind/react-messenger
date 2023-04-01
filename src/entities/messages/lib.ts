@@ -15,10 +15,3 @@ export async function fetchMessages(chatID: string): Promise<IMessage[]> {
 
 	return msgSnapshot.docs.map(msg => { return { ...msg.data(), id: msg.id } }) as IMessage[]
 }
-export async function sendMessage(msg: IPendingMessage) {
-	const uid = getUser()?.uid
-	if(!uid) throw new Error('uid is null')
-
-	const msgRef = await addDoc(collection(db, "messages"), msg)
-	return (await getDoc(msgRef)).data() as IMessage
-}

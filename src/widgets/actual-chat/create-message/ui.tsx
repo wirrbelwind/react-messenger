@@ -1,11 +1,8 @@
-import { Box, Button, Grid, IconButton, Popover, TextField, Typography } from "@mui/material"
-import { messagesModel } from "entities/messages";
+import { Box } from "@mui/material"
 import { EmojiPicker } from "features/emoji-picker";
-import { InputMessage } from "features/input-message/ui";
+import { MsgInput } from "features/send-msg";
 import { doc, Timestamp } from "firebase/firestore";
-import { SetStateAction } from "react";
-import { FC, useState } from "react";
-import { BehaviorSubject } from "rxjs";
+import { FC } from "react";
 import { db, getUser } from "shared/firebase";
 import useInput from "shared/libs/hooks/useInput";
 import { IPendingMessage } from "shared/libs/types";
@@ -55,7 +52,7 @@ export const CreateMessage: FC<Props> = ({
 
 			<EmojiPicker input={input} />
 
-			<InputMessage input={input} />
+			<MsgInput input={input} />
 
 			{withSubmitBtn && <ArrowButton
 				direction='right'

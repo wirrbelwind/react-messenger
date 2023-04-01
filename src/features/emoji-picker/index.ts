@@ -1,1 +1,1 @@
-export * from './ui'
+export {EmojiPicker} from './ui'

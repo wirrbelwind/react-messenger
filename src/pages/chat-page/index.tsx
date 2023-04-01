@@ -1,5 +1,4 @@
 import { Box, Button, Grid } from "@mui/material";
-import { Sidebar } from "widgets/sidebar";
 import { ChatList } from "widgets/chat-list";
 import { useParams } from "react-router";
 import React from "react";
@@ -9,6 +8,7 @@ import { CreateMessage } from "widgets/actual-chat/create-message/ui";
 import { userModel } from "entities/user";
 import { ResizableBox } from 'react-resizable';
 import { Chat } from "widgets/actual-chat/chat-container";
+import { Sidebar } from "shared/ui/Sidebar";
 
 const MemoizedSidebar = React.memo(Sidebar)
 
@@ -16,14 +16,12 @@ export const ChatPage = () => {
 
 
 	return (
-		<Grid container sx={{ height: '100dvh' }}>
+		<Grid container sx={{ height: '100dvh' }} >
 
 			<Grid item xs={4}>
 				<MemoizedSidebar
 					title="Chats"
 					withBurger={true}
-					withBackButton={false}
-					withSearch={false}
 					body={<ChatList />}
 				/>
 			</Grid>

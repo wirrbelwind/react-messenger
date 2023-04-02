@@ -6,7 +6,7 @@ import { CreateMessage } from "../create-message"
 import { ChatHeader } from "../header"
 import { ChatMessages } from "../messages"
 import { BehaviorSubject } from 'rxjs';
-import { sendMsgModel } from "features/send-msg"
+import { sendMsgModel } from "features/send-message"
 
 export const Chat = () => {
 	const { chatID } = useParams<'chatID'>()

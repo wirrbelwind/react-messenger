@@ -54,12 +54,14 @@ export const CreateMessage: FC<Props> = ({
 
 			<MsgInput input={input} />
 
-			{withSubmitBtn && <ArrowButton
-				direction='right'
-				type='submit'
-				disabled={!input.value}
-			/>}
+			{
+				withSubmitBtn &&
+				<ArrowButton
+					direction='right'
+					type='submit'
+					disabled={!input.value}
+				/>
+			}
 		</Box>
-
 	)
 }

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { EmojiPicker } from "features/emoji-picker";
-import { MsgInput } from "features/send-msg";
+import { MsgInput } from "features/send-message";
 import { doc, Timestamp } from "firebase/firestore";
 import { FC } from "react";
 import { db, getUser } from "shared/firebase";

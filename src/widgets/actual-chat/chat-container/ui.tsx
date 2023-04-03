@@ -1,11 +1,8 @@
 import { Box } from "@mui/material"
-import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { IMessage, IPendingMessage } from "shared/libs/types"
 import { CreateMessage } from "../create-message"
 import { ChatHeader } from "../header"
 import { ChatMessages } from "../messages"
-import { BehaviorSubject } from 'rxjs';
 import { sendMsgModel } from "features/send-message"
 
 export const Chat = () => {

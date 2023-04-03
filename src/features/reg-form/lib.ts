@@ -1,3 +1,4 @@
+import { AuthError, AuthErrorCodes, AuthErrorMap } from "firebase/auth"
 import { ReactElement, useState } from "react"
 
 export interface FormData {
@@ -44,5 +45,25 @@ export function useMultistepForm(steps: ReactElement[]) {
 		goTo,
 		next,
 		back,
+	}
+}
+
+export function formatAuthError(error: AuthError) {
+	AuthErrorCodes
+	switch (error.code) {
+		case AuthErrorCodes.EMAIL_EXISTS:
+			return 'Email is already taken.'
+
+		case AuthErrorCodes.INVALID_EMAIL:
+			return 'Invalid email.'
+
+		case AuthErrorCodes.WEAK_PASSWORD:
+			return 'Password should contain at least 6 letters or digits.'
+
+		case AuthErrorCodes.INVALID_PASSWORD:
+			return 'Incorrect password.'
+
+		default:
+			return 'Unknown error. Try again later.'
 	}
 }

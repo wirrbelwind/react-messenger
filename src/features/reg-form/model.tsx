@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FormData, StepProps, useMultistepForm } from './lib'
-import { QuickSignup } from './ui/QuickSignup'
+import { AboutStep } from './ui/AboutStep'
+import { QuickSignupStep } from './ui/QuickSignupStep'
 
 export const useSignupFormSteps = () => {
 	const [fields, setFields] = useState<FormData>({
@@ -21,11 +22,12 @@ export const useSignupFormSteps = () => {
 	}
 
 	const steps: React.ReactElement<StepProps>[] = [
-		QuickSignup,
+		QuickSignupStep,
+		AboutStep
 
 	].map(Comp => <Comp updateFields={updateFields} {...fields} />)
 
 	const useSteps = useMultistepForm(steps)
 
-	return { ...useSteps, fields }
+	return { ...useSteps, fields, updateFields }
 }

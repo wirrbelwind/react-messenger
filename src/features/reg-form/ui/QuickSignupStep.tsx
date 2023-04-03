@@ -1,23 +1,23 @@
-import { LoadingButton } from "@mui/lab"
-import { Alert, Checkbox, FormControlLabel, FormGroup, Paper, Switch, TextField, Typography } from "@mui/material"
-import { FC, useState } from "react"
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
-import { authModule } from "shared/firebase"
+import { FormControlLabel, FormGroup, Switch, TextField } from "@mui/material"
+import { FC, useEffect } from "react"
 import useInput from "shared/libs/hooks/useInput"
-import { wait } from "shared/libs/wait"
-import routeConfig from "shared/consts/routeConfig"
 import { StepProps } from "../lib"
 
-export const QuickSignup: FC<StepProps> = ({ email, pwd, _fastSignup, updateFields }) => {
-
-
+export const QuickSignupStep: FC<StepProps> = ({ email, pwd, _fastSignup, _errors, updateFields }) => {
 	const confirmPwd = useInput<string>('')
 
-	
+	useEffect(() => {
+		console.log('CHANGE');
+
+		if (pwd && confirmPwd.value && pwd !== confirmPwd.value)
+			updateFields({ _errors: [..._errors, 'Пароли не совпадают'] })
+
+	}, [pwd, confirmPwd.value])
 
 	return (
 		<>
 			<TextField
+				variant="filled"
 				value={email}
 				onChange={e => updateFields({ email: e.currentTarget.value })}
 				type='email'
@@ -25,6 +25,7 @@ export const QuickSignup: FC<StepProps> = ({ email, pwd, _fastSignup, updateFiel
 				required
 			/>
 			<TextField
+				variant="filled"
 				value={pwd}
 				onChange={e => updateFields({ pwd: e.currentTarget.value })}
 				type='password'
@@ -32,6 +33,7 @@ export const QuickSignup: FC<StepProps> = ({ email, pwd, _fastSignup, updateFiel
 				required
 			/>
 			<TextField
+				variant="filled"
 				value={confirmPwd.value}
 				onChange={confirmPwd.onChange}
 				type='password'
@@ -40,17 +42,17 @@ export const QuickSignup: FC<StepProps> = ({ email, pwd, _fastSignup, updateFiel
 			/>
 			<FormGroup>
 				<FormControlLabel
+					color="primary"
 					label="Fast"
 					control={
 						<Switch
+							color="primary"
 							checked={_fastSignup}
 							onChange={e => updateFields({ _fastSignup: e.currentTarget.checked })}
-							/>
+						/>
 					}
 				/>
 			</FormGroup>
-
-			
 		</>
 	)
 }

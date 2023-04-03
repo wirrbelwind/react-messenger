@@ -63,7 +63,7 @@ export function formatAuthError(error: AuthError) {
 		case AuthErrorCodes.INVALID_PASSWORD:
 			return 'Incorrect password.'
 
-		default:
+		default: 
 			return 'Unknown error. Try again later.'
 	}
 }

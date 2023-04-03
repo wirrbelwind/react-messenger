@@ -7,10 +7,12 @@ export const QuickSignupStep: FC<StepProps> = ({ email, pwd, _fastSignup, _error
 	const confirmPwd = useInput<string>('')
 
 	useEffect(() => {
-		console.log('CHANGE');
+		const errorTxt = 'Password not match.'
+		const isErrExists = !!_errors.find(el => el === errorTxt)
 
-		if (pwd && confirmPwd.value && pwd !== confirmPwd.value)
-			updateFields({ _errors: [..._errors, 'Пароли не совпадают'] })
+		if (pwd && confirmPwd.value && pwd !== confirmPwd.value && !isErrExists) {
+			updateFields({ _errors: [..._errors, errorTxt] })
+		}
 
 	}, [pwd, confirmPwd.value])
 

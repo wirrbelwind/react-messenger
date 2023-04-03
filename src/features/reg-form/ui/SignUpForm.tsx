@@ -18,7 +18,7 @@ export const SignUpForm = () => {
 		e.preventDefault()
 		// create user and go to index page, if user choose fast signup and submits email and pwd
 		if (steps.currentStepIndex === 0) {
-			await createUserWithEmailAndPassword(fields.email, fields.pwd)
+			createUserWithEmailAndPassword(fields.email, fields.pwd)
 		}
 	}
 
@@ -35,15 +35,20 @@ export const SignUpForm = () => {
 	}
 
 	let submitBtnTxt = '>'
-
 	if (steps.isFirstStep) submitBtnTxt = 'Create'
 	if (!steps.isFirstStep && !steps.isLastStep) submitBtnTxt = 'Next'
 	if (steps.isLastStep) submitBtnTxt = 'Finish'
 
-	if (error) {
-	}
+
 	useEffect(() => {
-		if (error) steps.updateFields({ _errors: [...fields._errors, formatAuthError(error)] })
+		if (!error) return;
+
+		const errorTxt = formatAuthError(error)
+		const isErrExists = !!fields._errors.find(el => el === errorTxt)
+
+		if (!isErrExists) {
+			steps.updateFields({ _errors: [...fields._errors, errorTxt] })
+		}
 	}, [error])
 
 	return (
@@ -62,6 +67,12 @@ export const SignUpForm = () => {
 				variant="h3">
 				Sign Up
 			</Typography>
+
+			{/* Errors */
+				fields._errors.length > 0 &&
+				<Alert severity="error">{fields._errors.join('\n')}</Alert>
+			}
+
 
 			{steps.step}
 

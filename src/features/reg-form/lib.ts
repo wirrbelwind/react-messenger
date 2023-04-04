@@ -1,10 +1,14 @@
 import { AuthError, AuthErrorCodes, AuthErrorMap } from "firebase/auth"
 import { ReactElement, useState } from "react"
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
+import { useNavigate } from "react-router"
+import { authModule } from "shared/firebase"
 
 export interface FormData {
 	name: string
 	email: string
 	pwd: string
+	confirmPwd: string
 	photoURL?: string
 	photoBase64?: string
 	about?: string
@@ -62,7 +66,40 @@ export function formatAuthError(error: AuthError) {
 		case AuthErrorCodes.INVALID_PASSWORD:
 			return 'Incorrect password.'
 
-		default: 
+		default:
 			return 'Unknown error. Try again later.'
+	}
+}
+export type useHandleStepDirection = 'back' | 'next'
+
+export function useHandleStepTransition
+	(
+		steps: ReturnType<typeof useMultistepForm>,
+		fields: FormData,
+		direction: useHandleStepDirection
+	) {
+	if (direction === 'back' && !steps.isFirstStep) steps.back()
+
+	if (direction === 'next') {
+		const [
+			createUserWithEmailAndPassword,
+			user,
+			loading,
+			error,
+		] = useCreateUserWithEmailAndPassword(authModule)
+		const navigate = useNavigate()
+
+		// if user on 1 step with email & pwd
+		if (steps.currentStepIndex === 0) {
+			// create user
+			createUserWithEmailAndPassword(fields.email, fields.pwd)
+			// if fast signup, then go to index page
+			if (fields._fastSignup) navigate('/', { replace: true })
+		}
+		//if step isn't first and last, go to next step 
+		if (!steps.isFirstStep && !steps.isLastStep) steps.next()
+
+		//if step is last, go to index page
+		if (steps.isLastStep) navigate('/', { replace: true })
 	}
 }

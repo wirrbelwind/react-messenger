@@ -3,13 +3,11 @@ import { FC, useEffect } from "react"
 import useInput from "shared/libs/hooks/useInput"
 import { StepProps } from "../lib"
 
-export const QuickSignupStep: FC<StepProps> = ({ email, pwd, _fastSignup, updateFields }) => {
-	const confirmPwd = useInput<string>('')
-
+export const QuickSignupStep: FC<StepProps> = ({ email, pwd, confirmPwd, _fastSignup, updateFields }) => {
 	return (
 		<>
 			{
-				(pwd && confirmPwd.value && pwd !== confirmPwd.value) &&
+				(pwd && confirmPwd && pwd !== confirmPwd) &&
 				<Alert severity="error">Passwords not match</Alert>
 			}
 
@@ -31,8 +29,8 @@ export const QuickSignupStep: FC<StepProps> = ({ email, pwd, _fastSignup, update
 			/>
 			<TextField
 				variant="filled"
-				value={confirmPwd.value}
-				onChange={confirmPwd.onChange}
+				value={confirmPwd}
+				onChange={e => updateFields({ confirmPwd: e.currentTarget.value })}
 				type='password'
 				label='Confirm password'
 				required

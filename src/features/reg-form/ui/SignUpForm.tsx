@@ -16,18 +16,28 @@ export const SignUpForm = () => {
 
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
-		// create user and go to index page, if user choose fast signup and submits email and pwd
-		if (steps.currentStepIndex === 0) {
-			createUserWithEmailAndPassword(fields.email, fields.pwd)
-		}
-	}
 
+		// if user on 1 step with email & pwd
+		if (steps.currentStepIndex === 0) {
+			createUserWithEmailAndPassword(fields.email, fields.pwd) // create user
+			if (fields._fastSignup) navigate('/', { replace: true }) // if fast signup, then go to index page
+		}
+
+		if (!steps.isFirstStep && !steps.isLastStep) steps.next()
+
+		//go to index page if step is last
+		if (steps.isLastStep) navigate('/', { replace: true })
+	}
+	
 	const [
 		createUserWithEmailAndPassword,
 		user,
 		loading,
 		error,
 	] = useCreateUserWithEmailAndPassword(authModule)
+
+	//go next if step isn't last
+	if (steps.isFirstStep && !error && user && !loading) steps.next()
 
 	if (fields._fastSignup && user) {
 		console.log('navigate');
@@ -38,19 +48,6 @@ export const SignUpForm = () => {
 	if (steps.isFirstStep) submitBtnTxt = 'Create'
 	if (!steps.isFirstStep && !steps.isLastStep) submitBtnTxt = 'Next'
 	if (steps.isLastStep) submitBtnTxt = 'Finish'
-
-
-	useEffect(() => {
-		if (!error) return;
-
-		const errorTxt = formatAuthError(error)
-		const isErrExists = !!fields._errors.find(el => el === errorTxt)
-
-		if (!isErrExists) {
-			steps.updateFields({ _errors: [...fields._errors, errorTxt] })
-		}
-	}, [error])
-
 	return (
 		<Paper
 			component='form'
@@ -59,20 +56,21 @@ export const SignUpForm = () => {
 				display: 'flex',
 				flexDirection: 'column',
 				gap: 3,
-				padding: '10px 20px'
+				padding: '10px 50px'
 			}}
 		>
+
+
 			<Typography
 				textAlign='center'
 				variant="h3">
 				Sign Up
 			</Typography>
 
-			{/* Errors */
-				fields._errors.length > 0 &&
-				<Alert severity="error">{fields._errors.join('\n')}</Alert>
+			{/* errors */
+				error &&
+				<Alert severity="error">{formatAuthError(error)}</Alert>
 			}
-
 
 			{steps.step}
 

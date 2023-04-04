@@ -9,7 +9,6 @@ export interface FormData {
 	photoBase64?: string
 	about?: string
 	_fastSignup: boolean
-	_errors: string[]
 }
 export type StepProps = FormData & {
 	updateFields: (fields: Partial<FormData>) => void

@@ -1,9 +1,11 @@
 import { Box, Button, TextField } from "@mui/material"
 import { userModel } from "entities/user"
+import { useNavigate } from "react-router"
 import useInput from "shared/libs/hooks/useInput"
 
 
 export const LoginForm = () => {
+	const navigate = useNavigate()
 	const login = useInput<string>('')
 	const pwd = useInput<string>('')
 
@@ -14,8 +16,8 @@ export const LoginForm = () => {
 		e.preventDefault()
 
 		signin.mutate({ email: login.value, pwd: pwd.value })
-
 	}
+	if (signin.isSuccess) navigate('/', { replace: true })
 
 	if (signin.isError) console.log('error', signin.error);
 	if (signin.isLoading) console.log('lodaing');

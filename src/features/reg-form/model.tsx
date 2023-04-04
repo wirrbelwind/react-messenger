@@ -12,7 +12,6 @@ export const useSignupFormSteps = () => {
 		photoBase64: '',
 		photoURL: '',
 		_fastSignup: false,
-		_errors: []
 	})
 
 	function updateFields(fields: Partial<FormData>) {

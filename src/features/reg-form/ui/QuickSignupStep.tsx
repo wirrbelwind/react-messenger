@@ -1,23 +1,18 @@
-import { FormControlLabel, FormGroup, Switch, TextField } from "@mui/material"
+import { Alert, FormControlLabel, FormGroup, Switch, TextField } from "@mui/material"
 import { FC, useEffect } from "react"
 import useInput from "shared/libs/hooks/useInput"
 import { StepProps } from "../lib"
 
-export const QuickSignupStep: FC<StepProps> = ({ email, pwd, _fastSignup, _errors, updateFields }) => {
+export const QuickSignupStep: FC<StepProps> = ({ email, pwd, _fastSignup, updateFields }) => {
 	const confirmPwd = useInput<string>('')
-
-	useEffect(() => {
-		const errorTxt = 'Password not match.'
-		const isErrExists = !!_errors.find(el => el === errorTxt)
-
-		if (pwd && confirmPwd.value && pwd !== confirmPwd.value && !isErrExists) {
-			updateFields({ _errors: [..._errors, errorTxt] })
-		}
-
-	}, [pwd, confirmPwd.value])
 
 	return (
 		<>
+			{
+				(pwd && confirmPwd.value && pwd !== confirmPwd.value) &&
+				<Alert severity="error">Passwords not match</Alert>
+			}
+
 			<TextField
 				variant="filled"
 				value={email}

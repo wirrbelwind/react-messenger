@@ -1,10 +1,10 @@
 import { LoginForm } from "features/login-form"
-import { AlternateLayout } from "shared/ui/AlternateLayout"
+import { FormContainer } from "shared/ui/FormContainer"
 
 export const SigninPage = () => {
 	return (
-		<AlternateLayout>
+		<FormContainer>
 			<LoginForm />
-		</AlternateLayout>
+		</FormContainer>
 	)
 }

@@ -1,10 +1,10 @@
 import { SignUpForm } from "features/reg-form";
-import { AlternateLayout } from "shared/ui/AlternateLayout";
+import { FormContainer } from "shared/ui/FormContainer";
 
 export const SignupPage = () => {
 	return (
-		<AlternateLayout>
+		<FormContainer>
 			<SignUpForm />
-		</AlternateLayout>
+		</FormContainer>
 	)
 }

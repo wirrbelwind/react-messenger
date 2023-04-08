@@ -1,43 +1,25 @@
 import { Box, Drawer, IconButton, Input, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowButton } from "shared/ui/ArrowButton";
 import { BurgerButton } from "shared/ui/BurgerButton";
+import { BurgerNavigation } from "widgets/burger-navigation";
 
 interface Props {
 	title?: string
 	withSearch?: boolean
-	withBurger?: boolean
 	withBackButton?: boolean
+	withNavigation?: boolean
 	body?: React.ReactNode
 }
-export const Sidebar = ({ title, withSearch, withBurger, withBackButton, body }: Props) => {
-
-	useEffect(() => {
-		console.log('RERENDERED');
-	}, [])
-
+export const Sidebar = React.memo(({ title, withSearch, withBackButton, body, withNavigation }: Props) => {
 	const history = useNavigate()
 
-	// burger menu state
-	const [burgerMenu, setBurgerMenu] = useState<boolean>(false)
-	const toggleBurgerMenu = () => setBurgerMenu(prev => !prev)
-
-
 	return (
-
 		<Box>
 			{
-				withBurger && <>
-					<BurgerButton onClick={() => toggleBurgerMenu()} />
-					<Drawer
-						anchor='left'
-						open={burgerMenu}
-						onClose={() => toggleBurgerMenu()}
-					>
-						<Typography component='h1'>asdsadasdada</Typography>
-					</Drawer>
-				</>
+				withNavigation &&
+				<BurgerNavigation />
 			}
 			{
 				withBackButton &&
@@ -55,4 +37,4 @@ export const Sidebar = ({ title, withSearch, withBurger, withBackButton, body }:
 
 		</Box>)
 
-}
+})

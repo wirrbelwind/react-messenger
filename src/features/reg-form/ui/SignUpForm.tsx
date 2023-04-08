@@ -1,12 +1,17 @@
-import { Alert, Button, Paper, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Paper, styled, TextField, Typography } from "@mui/material"
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
 // import { useSignupFormSteps } from "../model"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { authModule } from "shared/firebase"
 import { FormData } from "../lib"
 
+
+const Form = styled(Box)(({ theme }) => ({
+	backgroundColor: theme.palette.background.paper
+}))
+
 export const SignUpForm = () => {
-	const { control, handleSubmit, formState: { errors,  } } = useForm<FormData>({
+	const { control, handleSubmit, formState: { errors, } } = useForm<FormData>({
 		defaultValues: {
 			email: '',
 			confirmPwd: '',
@@ -29,15 +34,10 @@ export const SignUpForm = () => {
 	}
 
 	return (
-		<Paper
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: 3,
-				padding: '10px 50px'
-			}}
+		<Form
 			component='form'
-			onSubmit={handleSubmit(onSubmit)} >
+			onSubmit={handleSubmit(onSubmit)}
+		>
 			<Typography
 				textAlign='center'
 				variant="h3">
@@ -84,7 +84,6 @@ export const SignUpForm = () => {
 					required: true,
 					minLength: 6,
 					maxLength: 30,
-					validate: q => formState
 				}}
 				name="confirmPwd"
 				control={control}
@@ -99,6 +98,6 @@ export const SignUpForm = () => {
 			>
 				Create
 			</Button>
-		</Paper >
+		</Form>
 	)
 }

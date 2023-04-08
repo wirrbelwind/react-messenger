@@ -1,4 +1,5 @@
-import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper, Typography, useTheme } from "@mui/material"
+import styled from "@emotion/styled"
+import { Avatar, Box, ListItem, ListItemAvatar, ListItemText, Paper, Typography, useTheme } from "@mui/material"
 import { Link } from "react-router-dom"
 import { getUser } from "shared/firebase"
 import { formatDate } from "shared/libs/formatDate"
@@ -17,10 +18,9 @@ export const ChatBar = ({ viewerID, chat }: Props) => {
 
 	return (
 		<ListItem
+			sx={{ ':hover': theme.palette.background.paper }}
 			component={Link}
 			to={`/${chat.id}`}
-
-			sx={{ ':hover': { backgroundColor: theme.palette.background.paper } }}
 		>
 			{/* Avatar column */}
 			<ListItemAvatar>
@@ -29,15 +29,18 @@ export const ChatBar = ({ viewerID, chat }: Props) => {
 
 			{/* column of primary text: name of chat and text of message */}
 			<ListItemText
-				primary={chat.name}
+				primary={<Typography
+					variant="body1"
+					color='primary.dark'
+				>
+					{chat.name}
+				</Typography>}
 
 				secondary={
 					chat.lastMessage &&
 					<Typography
-						sx={{ display: 'inline' }}
-						component="span"
 						variant="body2"
-						color="black"
+						color='primary'
 					>
 						{
 							chat.lastMessage.senderID.id === viewerID

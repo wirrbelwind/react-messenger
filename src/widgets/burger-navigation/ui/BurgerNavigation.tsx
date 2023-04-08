@@ -24,7 +24,7 @@ export const BurgerNavigation = () => {
 			onClose={toggleMenu}
 		>
 			{
-				navs.map(nav => <ListItem component={Link} to={nav.to}>
+				navs.map(nav => <ListItem key={nav.to} component={Link} to={nav.to}>
 					<ListItemIcon> <nav.icon /> </ListItemIcon>
 					<ListItemText> {nav.label} </ListItemText>
 				</ListItem>)

@@ -1,14 +1,15 @@
-import styled from "@emotion/styled"
-import { Avatar, Box, ListItem, ListItemAvatar, ListItemText, Paper, Typography, useTheme } from "@mui/material"
+import { Avatar, Box, ListItem, ListItemAvatar, ListItemProps, ListItemText, Paper, styled, Typography, useTheme } from "@mui/material"
 import { Link } from "react-router-dom"
 import { getUser } from "shared/firebase"
 import { formatDate } from "shared/libs/formatDate"
 import { IChat, isGroupChat, isPrivateChat } from "shared/libs/types"
+import { ChatName, Container, LastMsg, DateText, StatusText } from "./styled"
 
 interface Props {
 	viewerID?: string | null
 	chat: IChat
 }
+
 
 export const ChatBar = ({ viewerID, chat }: Props) => {
 	const theme = useTheme()
@@ -16,9 +17,13 @@ export const ChatBar = ({ viewerID, chat }: Props) => {
 	const isGroup = isGroupChat(chat)
 	const isPrivate = isPrivateChat(chat)
 
+	const date = formatDate(chat.lastMessage?.timestamp.seconds)
+
+	let lastMsgTxt = chat.lastMessage?.text || ''
+	if (lastMsgTxt && chat.lastMessage?.senderID.id === viewerID) lastMsgTxt = 'You: ' + lastMsgTxt
+
 	return (
-		<ListItem
-			sx={{ ':hover': theme.palette.background.paper }}
+		<Container
 			component={Link}
 			to={`/${chat.id}`}
 		>
@@ -29,36 +34,16 @@ export const ChatBar = ({ viewerID, chat }: Props) => {
 
 			{/* column of primary text: name of chat and text of message */}
 			<ListItemText
-				primary={<Typography
-					variant="body1"
-					color='primary.dark'
-				>
-					{chat.name}
-				</Typography>}
-
-				secondary={
-					chat.lastMessage &&
-					<Typography
-						variant="body2"
-						color='primary'
-					>
-						{
-							chat.lastMessage.senderID.id === viewerID
-							&&
-							'You: '
-						}
-
-						{chat.lastMessage.text}
-					</Typography>
-
-				}
+				primary={<ChatName>{chat.name}</ChatName>}
+				secondary={chat.name}
 			/>
-			{chat.lastMessage &&
+			{
+				chat.lastMessage &&
 				<ListItemText
-					primary={formatDate(chat.lastMessage?.timestamp.seconds)}
+					primary={<DateText>{date}</DateText>}
 					secondary={chat.lastMessage?.status}
 				/>
 			}
-		</ListItem>
+		</Container >
 	)
 }

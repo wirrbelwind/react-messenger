@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 
-export function formatDate(date: number | Dayjs): string {
+export function formatDate(date?: number | Dayjs): string {
+	if(!date) return '';
 	if (!dayjs.isDayjs(date)) date = dayjs.unix(date)
 	//current datetime
 	const now = dayjs()

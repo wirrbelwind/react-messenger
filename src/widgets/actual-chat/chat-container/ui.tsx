@@ -4,12 +4,15 @@ import { CreateMessage } from "../create-message"
 import { ChatHeader } from "../header"
 import { ChatMessages } from "../messages"
 import { sendMsgModel } from "features/send-message"
+import { doc, onSnapshot } from "firebase/firestore"
+import { db } from "shared/firebase"
 
 export const Chat = () => {
 	const { chatID } = useParams<'chatID'>()
 
 	const msgProc = sendMsgModel.useMsgSendingQueue(chatID)
 
+	
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
 			{!chatID &&

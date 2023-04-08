@@ -23,7 +23,7 @@ export function useCreateMessage(chatID: string) {
 
 		// effects
 		onSuccess(data, variables, context) {
-			queryClient.invalidateQueries(tanstackKeys.MESSAGES.GET(chatID))
+			// queryClient.invalidateQueries(tanstackKeys.MESSAGES.GET(chatID))
 		},
 	})
 }

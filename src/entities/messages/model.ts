@@ -7,9 +7,9 @@ import { IMessage, IPendingMessage } from "shared/libs/types"
 import { fetchMessages } from "./lib"
 
 export const useMessages = (chatID: string): UseQueryResult<IMessage[]> => {
-
+	const client = useQueryClient()
 	return useQuery<IMessage[]>({
-		queryFn: () => fetchMessages(chatID),
+		queryFn: () => fetchMessages(chatID, client),
 		queryKey: tanstackKeys.MESSAGES.GET(chatID),
 	})
 }

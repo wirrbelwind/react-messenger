@@ -12,6 +12,7 @@ export const useChatList = () => {
 	})
 }
 export const useChat = (chatID: string) => {
+	
 	return useQuery({
 		queryFn: () => fetchActualChat(chatID),
 		queryKey: tanstackKeys.ACTUAL_CHAT.GET(chatID)

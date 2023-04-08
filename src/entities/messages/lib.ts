@@ -13,21 +13,18 @@ export async function fetchMessages(chatID: string, client: QueryClient): Promis
 		where('chatID', '==', chatDocRef),
 		orderBy("timestamp", "asc")
 	)
-	onSnapshot(msgQuery, snap => {
-		// snap.docChanges().map(msg => client.setQueryData())
-		console.log('появилось сообщение');
-		snap.docChanges().map(msg => {
-			client.setQueryData(tanstackKeys.MESSAGES.GET(chatID), (old: any) => [
-				...old as IMessage[],
-				msg.doc.data()
-			])
-		})
 
-		// client.invalidateQueries({ queryKey: tanstackKeys.MESSAGES.GET(chatID) })
-		// client.refetchQueries({queryKey: tanstackKeys.MESSAGES.GET(chatID)})
+	//call to cancel subscription
+	const unsubscribe = onSnapshot(msgQuery, snap => {
+		const newMessages = snap.docChanges().map(msg => ({ ...msg.doc.data(), id: msg.doc.id } as IMessage))
 
+		client.setQueryData(
+			tanstackKeys.MESSAGES.GET(chatID),
+			(messages: any) => [...messages, ...newMessages]
+		)
 	})
+
 	const msgSnapshot = await getDocs(msgQuery)
 
-	return msgSnapshot.docs.map(msg => { return { ...msg.data(), id: msg.id } }) as IMessage[]
+	return msgSnapshot.docChanges().map(msg => { return { ...msg.doc.data(), id: msg.doc.id } }) as IMessage[]
 }

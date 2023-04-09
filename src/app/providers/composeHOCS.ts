@@ -5,4 +5,4 @@ export const composeHOCs = <T extends {}>(...hocs: HOC<T>[]) => (Component: Reac
 	return hocs.reduceRight((wrappedComponent, hoc) => {
 		return hoc(wrappedComponent);
 	}, Component);
-};
+}

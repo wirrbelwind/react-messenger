@@ -3,8 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { IPendingMessage } from "shared/libs/types";
 import { useCreateMessage } from "./lib";
 
-export function useMsgSendingQueue(chatID: string | undefined) {
-	if (!chatID) return null;
+export function useMsgSendingQueue(chatID: string) {
 
 	const msgQueue = new BehaviorSubject<IPendingMessage[]>([]);
 	const queueState = useState(msgQueue.getValue())

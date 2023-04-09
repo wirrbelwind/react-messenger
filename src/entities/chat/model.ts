@@ -5,16 +5,20 @@ import { IChat } from "shared/libs/types"
 import { fetchActualChat, fetchChatList } from "./lib"
 
 export const useChatList = () => {
+	const uid = getUser()?.uid
 
 	return useQuery<IChat[]>({
-		queryFn: () => fetchChatList(),
+		enabled: !!uid,
+		queryFn: () => fetchChatList(uid!),
 		queryKey: tanstackKeys.CHATLIST.GET_LIST
 	})
 }
-export const useChat = (chatID: string) => {
-	
+export const useChat = (chatID: string | undefined) => {
+	const uid = getUser()?.uid
+
 	return useQuery({
-		queryFn: () => fetchActualChat(chatID),
-		queryKey: tanstackKeys.ACTUAL_CHAT.GET(chatID)
+		enabled: (!!chatID && !!uid),
+		queryFn: () => fetchActualChat(chatID!, uid!),
+		queryKey: tanstackKeys.ACTUAL_CHAT.GET(chatID!),
 	})
 }

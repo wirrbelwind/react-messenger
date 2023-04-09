@@ -1,25 +1,15 @@
-import { collection, doc, DocumentReference, getDoc, getDocs, limit, orderBy, query, where } from "firebase/firestore"
-import { authModule, db, getUser } from "shared/firebase"
-import { GroupChatData, IChat, IGroupChat, IMessage, IPrivateChat, PrivateChatData, RawChat } from "shared/libs/types"
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { useUser } from "shared/libs/hooks/useUser"
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from "firebase/firestore"
+import { db } from "shared/firebase"
+import { IChat, IMessage, PrivateChatData, RawChat } from "shared/libs/types"
 import { formatRawChat } from "shared/libs/formatRawChat"
 
-export async function fetchChatList() {
-	const uid = getUser()?.uid
-	if (!uid) throw new Error('uid is null')
-
+export async function fetchChatList(uid: string) {
 	let chats = await fetchChats(uid)
 	chats = await Promise.all(chats.map(ch => attachLastMsgToChat(ch)))
 
 	return chats
 }
-export async function fetchActualChat(chatID: string): Promise<Omit<IChat, 'lastMessage'> | null> {
-	const uid = getUser()?.uid
-	if (!uid) {
-		throw new Error('uid is null')
-	}
-
+export async function fetchActualChat(chatID: string, uid: string): Promise<Omit<IChat, 'lastMessage'>> {
 	const chatSnapshot = await getDoc(doc(db, 'chats', chatID))
 
 	const chatData = chatSnapshot.data() as RawChat
@@ -28,18 +18,14 @@ export async function fetchActualChat(chatID: string): Promise<Omit<IChat, 'last
 		const companionRef = chatData.usersID.find(chat => chat.id !== uid)
 
 		if (!companionRef) throw new Error('companion not found')
-
-
 		const companionSnap = await getDoc(companionRef)
 
 		const companion: PrivateChatData = {
 			...companionSnap.data() as PrivateChatData,
 			companionID: companionSnap.id
 		}
-
 		chatData.companion = companion
 	}
-	console.log(formatRawChat(chatData));
 
 	return formatRawChat(chatData)
 }

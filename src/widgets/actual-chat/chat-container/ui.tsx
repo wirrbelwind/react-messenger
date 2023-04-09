@@ -1,45 +1,58 @@
-import { Box } from "@mui/material"
-import { useParams } from "react-router"
+import { Box, styled } from "@mui/material"
 import { CreateMessage } from "../create-message"
 import { ChatHeader } from "../header"
 import { ChatMessages } from "../messages"
 import { sendMsgModel } from "features/send-message"
-import { doc, onSnapshot } from "firebase/firestore"
-import { db } from "shared/firebase"
+import { useMemo } from "react"
+import { useChatID } from "shared/libs/providers/ChatContext"
+
+const Container = styled(Box)({
+	display: 'flex',
+	flexDirection: 'column',
+	height: '100%'
+})
+const Header = styled(ChatHeader)({
+	flexGrow: 0,
+	flexShrink: 1
+})
+const Messages = styled(ChatMessages)({
+	flexGrow: 1
+})
+const CreateMsgFooter = styled(CreateMessage)({
+	flexGrow: 0,
+	flexShrink: 1
+})
 
 export const Chat = () => {
-	const { chatID } = useParams<'chatID'>()
+	const chatID = useChatID()
 
-	const msgProc = sendMsgModel.useMsgSendingQueue(chatID)
+	const msgProc = useMemo(
+		() => {
+			if (chatID) return sendMsgModel.useMsgSendingQueue(chatID)
+		},
+		[chatID]
+	)
 
-	
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+		<Container>
 			{!chatID &&
 				<h1>nothing</h1>
 			}
 
-			{
-				chatID && msgProc && <>
-					<Box sx={{ flexGrow: 0, flexShrink: 1 }}>
-						<ChatHeader chatID={chatID} />
-					</Box>
+			{chatID && msgProc && <>
+				<Header chatID={chatID} />
 
-					<Box sx={{ flexGrow: 1 }} >
-						<ChatMessages
-							chatID={chatID}
-							msgQueueState={msgProc.state}
-						/>
-					</Box>
+				<Messages
+					chatID={chatID}
+					msgQueueState={msgProc.state}
+				/>
 
-					<Box sx={{ flexGrow: 0, flexShrink: 1 }}>
-						<CreateMessage
-							chatID={chatID}
-							sendMsg={msgProc.addMessage}
-						/>
-					</Box>
-				</>
+				<CreateMsgFooter
+					chatID={chatID}
+					sendMsg={msgProc.addMessage}
+				/>
+			</>
 			}
-		</Box>
+		</Container>
 	)
 }

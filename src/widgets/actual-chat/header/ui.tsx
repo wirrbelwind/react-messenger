@@ -1,19 +1,17 @@
-import { Avatar, Box, TextField, Typography } from '@mui/material'
+import { Avatar, Box, BoxProps, TextField, Typography } from '@mui/material'
 import { chatModel } from 'entities/chat'
 import { FC } from 'react'
 import { useParams } from 'react-router'
 import { stringToAvatar } from 'shared/libs/stringToAvatar'
 import { IChat } from 'shared/libs/types'
 
-interface ChatHeaderProps {
+interface ChatHeaderProps extends BoxProps {
 	chatID: string
 }
 
 export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 	const chat = chatModel.useChat(chatID)
-	if (chat.isSuccess) console.log(chat.data);
 
-	// show avatar, name, countParty or status of companion
 	return (
 		<Box sx={{
 			display: 'flex',

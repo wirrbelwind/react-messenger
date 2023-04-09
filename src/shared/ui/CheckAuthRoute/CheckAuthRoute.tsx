@@ -9,6 +9,5 @@ export const CheckAuthRoute = () => {
 	const [user, loading, error] = useAuthState(authModule)
 	if (!user && !loading && !error) return <Navigate to={routeConfig.public.SIGNIN}/> 
 
-
 	return <Outlet />
 }

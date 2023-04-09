@@ -1,4 +1,4 @@
-import { Routing } from 'pages';
+import { Routing } from 'pages/Routing';
 import { Route, Routes } from 'react-router';
 import { withProviders } from './providers';
 import { QueryClient } from '@tanstack/react-query'

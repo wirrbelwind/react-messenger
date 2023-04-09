@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, BoxProps } from "@mui/material"
 import { EmojiPicker } from "features/emoji-picker";
 import { MsgInput } from "features/send-message";
 import { doc, Timestamp } from "firebase/firestore";
@@ -8,7 +8,7 @@ import useInput from "shared/libs/hooks/useInput";
 import { IPendingMessage } from "shared/libs/types";
 import { ArrowButton } from "shared/ui/ArrowButton";
 
-interface Props {
+interface Props extends BoxProps{
 	chatID: string
 	sendMsg: (newMsg: IPendingMessage) => void
 	withSubmitBtn?: boolean

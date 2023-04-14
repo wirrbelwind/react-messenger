@@ -1,7 +1,7 @@
 import { useAuthState } from "react-firebase-hooks/auth"
 import { Navigate, Outlet, useNavigate } from "react-router"
 import routeConfig from "shared/consts/routeConfig"
-import { authModule } from "shared/firebase"
+import { authModule } from "shared/api/firebase"
 import { useUser } from "shared/libs/hooks/useUser"
 
 export const CheckAuthRoute = () => {

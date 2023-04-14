@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router'
-import { authModule } from 'shared/firebase'
+import { authModule } from 'shared/api/firebase'
 // import { FormData, StepProps, useMultistepForm } from './lib'
 import { AboutStep } from './ui/AboutStep'
 import { QuickSignupStep } from './ui/QuickSignupStep'

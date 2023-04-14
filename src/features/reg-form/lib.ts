@@ -2,7 +2,7 @@ import { AuthError, AuthErrorCodes, AuthErrorMap } from "firebase/auth"
 import { ReactElement, useState } from "react"
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
 import { useNavigate } from "react-router"
-import { authModule } from "shared/firebase"
+import { authModule } from "shared/api/firebase"
 
 export interface FormData {
 	name: string

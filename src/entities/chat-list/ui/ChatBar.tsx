@@ -1,6 +1,6 @@
 import { Avatar, Box, ListItem, ListItemAvatar, ListItemProps, ListItemText, Paper, styled, Typography, useTheme } from "@mui/material"
 import { Link } from "react-router-dom"
-import { getUser } from "shared/firebase"
+import { getUser } from "shared/api/firebase"
 import { formatDate } from "shared/libs/formatDate"
 import { IChat, isGroupChat, isPrivateChat } from "shared/libs/types"
 import { ChatName, Container, LastMsg, DateText, StatusText } from "./styled"

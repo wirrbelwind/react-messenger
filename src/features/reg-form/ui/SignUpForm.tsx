@@ -2,7 +2,7 @@ import { Alert, Box, Button, Paper, styled, TextField, Typography } from "@mui/m
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
 // import { useSignupFormSteps } from "../model"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import { authModule } from "shared/firebase"
+import { authModule } from "shared/api/firebase"
 import { FormData } from "../lib"
 
 

@@ -3,7 +3,7 @@ import { EmojiPicker } from "features/emoji-picker";
 import { MsgInput } from "features/send-message";
 import { doc, Timestamp } from "firebase/firestore";
 import { FC } from "react";
-import { db, getUser } from "shared/firebase";
+import { db, getUser } from "shared/api/firebase";
 import useInput from "shared/libs/hooks/useInput";
 import { IPendingMessage } from "shared/libs/types";
 import { ArrowButton } from "shared/ui/ArrowButton";

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router'
 import routeConfig from 'shared/consts/routeConfig'
-import { authModule } from 'shared/firebase'
+import { authModule } from 'shared/api/firebase'
 
 export const useUser = () => {
 	const [user, loading, error] = useAuthState(authModule)

@@ -1,8 +1,8 @@
 import { Box } from "@mui/material"
-import { chatModel } from "entities/chat"
-import { ChatBar } from "entities/chat/ui/ChatBar"
+import { chatModel } from "entities/current-chat"
+import { ChatBar } from "entities/chat-list/ui/ChatBar"
 import { useNavigate } from "react-router"
-import { getUser } from "shared/firebase"
+import { getUser } from "shared/api/firebase"
 import { useUser } from "shared/libs/hooks/useUser"
 
 export const ChatList = () => {

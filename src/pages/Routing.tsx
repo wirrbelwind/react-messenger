@@ -7,7 +7,7 @@ import { SettingsPage } from "./settings-page";
 import { CheckAuthRoute } from "shared/ui/CheckAuthRoute/CheckAuthRoute";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { authModule } from "shared/firebase";
+import { authModule } from "shared/api/firebase";
 
 export const Routing = () => {
     return (

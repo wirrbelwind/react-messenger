@@ -1,38 +1,15 @@
 import { Routing } from 'pages/Routing';
-import { Route, Routes } from 'react-router';
-import { withProviders } from './providers';
-import { QueryClient } from '@tanstack/react-query'
-import { onAuthStateChanged } from 'firebase/auth';
-import { authModule } from 'shared/firebase';
+import { composeHOCs } from 'shared/providers/composeHOCS';
+import { withRouter } from 'shared/providers/withRouter';
+import { withQueryClient } from 'shared/providers/withQueryClient';
+import { withTheme } from 'shared/providers/withTheme';
 
-const queryClient = new QueryClient()
-/*
-new QueryClient({
-	defaultOptions: {
-		queries: {
-			staleTime: Infinity,
-			onError(error: any) {
-				error.response.errors.forEach(async (err: any) => {
-					if (err.message.includes('empty access token')) {
-						try {
-							await refreshAccessToken()
-							query.refetch()
-						} catch (error) {
-							document.location.href = '/login';
-						}
-					}
-				}
-			}
-		}
-	}
-})
-*/
-
+export const withProviders = composeHOCs(withRouter, withQueryClient, withTheme)
 
 const App = () => {
 	return (
 		<Routing />
-	);
-};
+	)
+}
 
-export default withProviders(App);
+export default withProviders(App)

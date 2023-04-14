@@ -1,5 +1,5 @@
 import { Avatar, Box, BoxProps, TextField, Typography } from '@mui/material'
-import { chatModel } from 'entities/chat'
+import { chatModel } from 'entities/current-chat'
 import { FC } from 'react'
 import { useParams } from 'react-router'
 import { stringToAvatar } from 'shared/libs/stringToAvatar'
@@ -10,8 +10,6 @@ interface ChatHeaderProps extends BoxProps {
 }
 
 export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
-	const chat = chatModel.useChat(chatID)
-
 	return (
 		<Box sx={{
 			display: 'flex',
@@ -19,8 +17,7 @@ export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 			padding: '5px'
 		}}>
 			{chat.isSuccess && chat.data && <>
-				<Avatar {...stringToAvatar(chat.data.name)} />
-				<Typography>{chat.data.name}</Typography>
+
 			</>
 			}
 

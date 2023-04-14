@@ -3,7 +3,7 @@ import { ChatList } from "widgets/chat-list";
 import { Chat } from "widgets/actual-chat/chat-container";
 import { Sidebar } from "shared/ui/Sidebar";
 import { useParams } from "react-router";
-import { ChatIDContext } from "shared/libs/providers/ChatContext";
+import { ChatIDContext } from "shared/providers/ChatContext";
 
 // styled
 const GridContainer = styled(Grid)({

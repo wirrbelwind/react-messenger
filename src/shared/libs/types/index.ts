@@ -13,16 +13,16 @@ export interface RawChat {
 	type: 'direct' | 'group'
 	usersID: DocumentReference[]
 	group?: GroupChatData
-	companion?: PrivateChatData
+	companion?: ICompanion
 	lastMessage?: IMessage
 }
 export interface IGroupChat extends GroupChatData, Omit<RawChat, 'companion' | 'group'> {
 	type: 'group'
 }
-export interface IPrivateChat extends PrivateChatData, Omit<RawChat, 'companion' | 'group'> {
+export interface IPrivateChat extends ICompanion, Omit<RawChat, 'companion' | 'group'> {
 	type: 'direct'
 }
-export interface PrivateChatData {
+export interface ICompanion {
 	companionID: string
 	name: string
 	photoURL?: string

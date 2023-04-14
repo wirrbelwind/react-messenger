@@ -4,7 +4,7 @@ import { ChatHeader } from "../header"
 import { ChatMessages } from "../messages"
 import { sendMsgModel } from "features/send-message"
 import { useMemo } from "react"
-import { useChatID } from "shared/libs/providers/ChatContext"
+import { useChatID } from "shared/providers/ChatContext"
 
 const Container = styled(Box)({
 	display: 'flex',

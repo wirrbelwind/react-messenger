@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack
 import { useState } from "react"
 import { BehaviorSubject } from "rxjs"
 import { tanstackKeys } from "shared/consts/tanstack-keys"
-import { getUser } from "shared/firebase"
+import { getUser } from "shared/api/firebase"
 import { IMessage, IPendingMessage } from "shared/libs/types"
 import { fetchMessages } from "./lib"
 

@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { tanstackKeys } from "shared/consts/tanstack-keys";
 import { useEffect, useState } from "react";
-import { authModule, getUser } from "shared/firebase";
+import { authModule, getUser } from "shared/api/firebase";
 
 
 export const useCreateUser = () => useMutation<unknown, unknown, { email: string, pwd: string }>

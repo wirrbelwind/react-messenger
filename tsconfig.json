@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": "./src/",
-    "paths": {
-      // "@/*": ["./src/*"],
-    },
     "experimentalDecorators": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -21,8 +18,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "old"],
-  "references": [{
-    "path": "./tsconfig.node.json"
-  }]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

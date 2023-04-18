@@ -22,4 +22,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/src/shared/firebase/config.ts
+/src/shared/api/firebase/config.ts

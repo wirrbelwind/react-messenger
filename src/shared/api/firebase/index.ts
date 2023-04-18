@@ -1,10 +1,19 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { collection, QueryDocumentSnapshot, CollectionReference, Firestore, FirestoreDataConverter, getFirestore, getDoc, queryEqual, query, where, WhereFilterOp, getDocs } from "firebase/firestore";
-import { firebaseConfig, IFirebaseConfig } from "./config";
+import { firebaseConfig } from "./config";
 import { Auth, getAuth } from "firebase/auth";
 import { IBackendAPI, EntityName, Condition } from "../interface";
 
 const app = initializeApp(firebaseConfig);
+export interface IFirebaseConfig extends Record<string, string> {
+	apiKey: string
+	authDomain: string
+	projectId: string
+	storageBucket: string
+	messagingSenderId: string
+	appId: string
+	measurementId: string
+}
 
 export const authModule = getAuth(app)
 export const db = getFirestore(app)

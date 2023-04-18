@@ -1,8 +1,8 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { collection, QueryDocumentSnapshot, CollectionReference, Firestore, FirestoreDataConverter, getFirestore, getDoc, queryEqual, query, where, WhereFilterOp, getDocs } from "firebase/firestore";
-import { firebaseConfig } from "./config";
 import { Auth, getAuth } from "firebase/auth";
 import { IBackendAPI, EntityName, Condition } from "../interface";
+import { firebaseConfig } from "./config";
 
 const app = initializeApp(firebaseConfig);
 export interface IFirebaseConfig extends Record<string, string> {
@@ -12,6 +12,7 @@ export interface IFirebaseConfig extends Record<string, string> {
 	storageBucket: string
 	messagingSenderId: string
 	appId: string
+
 	measurementId: string
 }
 

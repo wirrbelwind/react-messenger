@@ -2,14 +2,16 @@ import { Avatar, Paper, Typography } from "@mui/material";
 import { useChatID } from "shared/providers/ChatContext";
 import { stringToAvatar } from "shared/libs/stringToAvatar";
 import { useCurrentChat } from "./model";
-
-export function CurrentChatBar() {
-	const chatID = useChatID()
-	const chat = useCurrentChat(chatID)
+import { IChat } from "shared/libs/types";
+import { FC } from 'react'
+interface CurrentChatBarProps {
+	chat: Omit<IChat, 'lastMessage'>
+}
+export const CurrentChatBar: FC<CurrentChatBarProps> = ({ chat }) => {
 	return (
 		<Paper>
-			<Avatar {...stringToAvatar(chat.data!.name)} />
-			<Typography>{chat.data!.name}</Typography>
+			<Avatar {...stringToAvatar(chat.name)} />
+			<Typography>{chat.name}</Typography>
 		</Paper>
 	)
 }

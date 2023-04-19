@@ -1,24 +1,25 @@
-import { Avatar, Box, BoxProps, TextField, Typography } from '@mui/material'
-import { chatModel } from 'entities/current-chat'
+import { Box, BoxProps, Typography } from '@mui/material'
+import { CurrentChatBar, currentChatModel } from 'entities/current-chat'
 import { FC } from 'react'
-import { useParams } from 'react-router'
-import { stringToAvatar } from 'shared/libs/stringToAvatar'
-import { IChat } from 'shared/libs/types'
+import { styled } from "@mui/material";
+
+const Container = styled(Box)({
+	display: 'flex',
+	border: '1px solid black',
+	padding: '5px'
+})
 
 interface ChatHeaderProps extends BoxProps {
 	chatID: string
 }
 
 export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
-	return (
-		<Box sx={{
-			display: 'flex',
-			border: '1px solid black',
-			padding: '5px'
-		}}>
-			{chat.isSuccess && chat.data && <>
+	const chat = currentChatModel.useCurrentChat(chatID)
 
-			</>
+	return (
+		<Container>
+			{chat.isSuccess &&
+				<CurrentChatBar chat={chat.data} />
 			}
 
 			{chat.isError &&
@@ -27,6 +28,6 @@ export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 			{chat.isFetching &&
 				<Typography>fetching</Typography>
 			}
-		</Box>
+		</Container>
 	)
 }

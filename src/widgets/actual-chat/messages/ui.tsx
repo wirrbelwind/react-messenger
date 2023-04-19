@@ -1,33 +1,30 @@
 import { Box } from "@mui/material";
 import { Message, messagesModel } from "entities/messages"
 import { FC } from "react"
-import { BehaviorSubject } from "rxjs";
 import { IPendingMessage } from "shared/libs/types";
-
+import { styled } from '@mui/material'
+import { useMsgAndQueueMsg } from "./model";
 interface ChatMessagesrProps {
 	chatID: string
-	msgQueueState?: IPendingMessage[]
+	msgQueue?: IPendingMessage[]
 }
-
-export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueueState }) => {
-
-	const messages = messagesModel.useMessages(chatID)
+const Container = styled(Box)({
+	display: 'flex',
+	flexDirection: 'column',
+	overflow: 'scroll'
+})
+export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
+	const msg = useMsgAndQueueMsg(chatID,msgQueue)
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'scroll' }}>
-			{messages.isSuccess &&
-				messages.data.map(msg => <Message
+		<Container>
+			{msg &&
+				msg.data.map(msg => <Message
 					message={msg}
-					onContextMenu={(e) => { e.preventDefault(); alert(msg.id) }}
-					key={msg.id}
+					onContextMenu={(e) => { e.preventDefault(); alert(msg.text) }}
+					key={msg.timestamp.toMillis()}
 				/>)
 			}
-			{
-				msgQueueState && msgQueueState.map(msg => <Message
-					isPending={true}
-					message={msg}
-					key={msg.timestamp.toMillis()} />)
-			}
-		</Box>
+		</Container>
 	)
 }

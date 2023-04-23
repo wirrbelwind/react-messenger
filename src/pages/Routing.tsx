@@ -1,13 +1,10 @@
 import PathRoutes from "shared/consts/routeConfig";
-import { Route, Routes, useNavigate } from "react-router";
+import { Route, Routes } from "react-router";
 import { SigninPage } from "./auth/signin-page";
 import { SignupPage } from "./auth/signup-page";
-import { ChatPage } from "./chat-page";
+import { ChatPage } from "./chat-page/ui/ChatPage";
 import { SettingsPage } from "./settings-page";
 import { CheckAuthRoute } from "shared/ui/CheckAuthRoute/CheckAuthRoute";
-import { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { authModule } from "shared/api/firebase";
 
 export const Routing = () => {
     return (
@@ -18,8 +15,9 @@ export const Routing = () => {
             <Route element={<CheckAuthRoute />}>
                 <Route element={<ChatPage />} path={PathRoutes.private.CHAT} />
                 <Route element={<SettingsPage />} path={PathRoutes.private.SETTINGS} />
-
             </Route>
+
+            {/* <Route path="*" element={ErrorPage} /> */}
         </Routes>
     );
 }

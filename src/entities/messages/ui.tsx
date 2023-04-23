@@ -1,4 +1,4 @@
-import { Box, ListItem, ListItemText, ListItemIcon } from "@mui/material"
+import { ListItem, ListItemText, ListItemIcon } from "@mui/material"
 import { FC } from "react"
 import { formatDate } from "shared/libs/formatDate"
 import { IMessage, IPendingMessage } from "shared/libs/types"
@@ -14,7 +14,7 @@ export const Message: FC<MessageProps> = ({ message, onContextMenu, isPending = 
 		<ListItem
 			onContextMenu={onContextMenu}
 			sx={{ border: '1px solid black', borderRadius: '7px', padding: '4px' }}
-			
+
 		>
 			<ListItemText
 				primary={`

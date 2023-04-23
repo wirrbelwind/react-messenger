@@ -4,13 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node server",
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build --ssrManifest --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
-    "preview": "cross-env NODE_ENV=production node server"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite-tsconfig-paths": "^4.2.0",
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
     "@emotion/styled": "^11.10.6",
@@ -25,30 +27,28 @@
     "@vitejs/plugin-react": "^3.0.1",
     "compose-function": "^3.0.3",
     "dayjs": "^1.11.7",
-    "express": "^4.18.2",
     "firebase": "^9.17.2",
-    "path": "^0.12.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.9",
     "react-resizable": "^3.0.5",
     "react-router": "^6.9.0",
     "react-router-dom": "^6.9.0",
     "rxjs": "^7.8.0",
-    "sass": "^1.57.1",
-    "vite-tsconfig-paths": "^4.0.5"
+    "sass": "^1.57.1"
   },
   "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.0",
     "@rollup/plugin-alias": "^4.0.3",
     "@types/compose-function": "^0.0.30",
-    "@types/express": "^4.17.16",
-    "@types/node": "^18.11.12",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
-    "@vitejs/plugin-react-swc": "^3.0.0",
-    "cross-env": "^7.0.3",
-    "typescript": "^4.9.4",
-    "vite": "^4.0.4"
+    "cross-env": "^7.0.3"
   }
 }

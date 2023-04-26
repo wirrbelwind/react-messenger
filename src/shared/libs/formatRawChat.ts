@@ -1,9 +1,9 @@
-import { IChat, IGroupChat, IPrivateChat, RawChat } from "shared/types";
+import { IChat, IGroupChat, IPrivateChat, RawChat } from "shared/libs/types";
 
 export function formatRawChat(chat: RawChat): IChat | null {
 	switch (chat.type) {
 		case "direct":
-			if (!!chat.companion) {
+			if (chat.companion) {
 				return {
 					id: chat.id,
 					type: 'direct',
@@ -13,13 +13,14 @@ export function formatRawChat(chat: RawChat): IChat | null {
 			break;
 
 		case 'group':
-			if (!!chat.group) return {
+			if (chat.group) return {
 				id: chat.id,
 				usersID: chat.usersID,
 				type: 'group',
 				...chat.group,
 
 			} as IGroupChat
+			break;
 
 		default:
 			console.log('Error while handling chat with type ' + chat.type + ' at formatChat function')

@@ -4,12 +4,10 @@ import { withRouter } from 'shared/providers/withRouter';
 import { withQueryClient } from 'shared/providers/withQueryClient';
 import { withTheme } from 'shared/providers/withTheme';
 
-export const withProviders = composeHOCs(withRouter, withQueryClient, withTheme)
+const withProviders = composeHOCs(withRouter, withQueryClient, withTheme)
 
-const App = () => {
+export const App = withProviders(() => {
 	return (
 		<Routing />
 	)
-}
-
-export default withProviders(App)
+})

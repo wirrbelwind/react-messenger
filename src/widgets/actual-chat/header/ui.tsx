@@ -2,6 +2,7 @@ import { Box, BoxProps, Typography } from '@mui/material'
 import { CurrentChatBar, currentChatModel } from 'entities/current-chat'
 import { FC } from 'react'
 import { styled } from "@mui/material";
+import { useUser } from 'shared/libs/hooks/useUser';
 
 const Container = styled(Box)({
 	display: 'flex',
@@ -14,7 +15,10 @@ interface ChatHeaderProps extends BoxProps {
 }
 
 export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
-	const chat = currentChatModel.useCurrentChat(chatID)
+	const { user } = useUser()
+
+	const chat = currentChatModel.useCurrentChat(chatID, user?.uid)
+	console.log('current chat header', chat);
 
 	return (
 		<Container>

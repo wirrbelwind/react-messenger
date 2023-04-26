@@ -17,6 +17,8 @@ const Container = styled(Box)({
 })
 
 export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
+	console.log('chatMessages',chatID, msgQueue);
+	
 	const msg = useMsgAndQueueMsg(chatID, msgQueue)
 
 	return (

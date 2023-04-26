@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
 import { tanstackKeys } from "shared/consts/tanstack-keys"
-import { db, getUser } from "shared/api/firebase"
-import { IChat, RawChat } from "shared/libs/types"
-import { doc, getDoc } from "firebase/firestore"
-import { formatRawChat } from "shared/libs/formatRawChat"
-import { fetchCompanion } from "shared/libs/fetchCompanion"
+import { getUser } from "shared/api/firebase"
+import { queryCurrentChat } from "./lib/querryCurrentChat"
+import { useUser } from "shared/libs/hooks/useUser"
 
-export const useCurrentChat = (chatID: string | undefined | null) => {
-	const uid = getUser()?.uid
+export const useCurrentChat = (
+	chatID: string | undefined | null,
+	userID: string | undefined
+) => {
 
 	return useQuery({
-		enabled: (!!chatID && !!uid),
-		queryFn: () => queryCurrentChat(chatID!, uid!),
+		enabled: (!!chatID && !!userID),
+		queryFn: () => queryCurrentChat(chatID!, userID!),
 		queryKey: tanstackKeys.ACTUAL_CHAT.GET(chatID!),
 	})
 }

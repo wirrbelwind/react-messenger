@@ -7,7 +7,7 @@ import { ChatMessages } from "widgets/actual-chat/messages"
 export const GridContainer = styled(Grid)({
 	height: '100dvh'
 })
-export const ChatContainer = styled(Box)({
+export const ChatContainer = styled(Grid)({
 	display: 'flex',
 	flexDirection: 'column',
 	height: '100%'

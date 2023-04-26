@@ -3,6 +3,6 @@ import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
 export function NotChatAlert() {
 	return (
-		<Alert title="Select chat to start conversation." icon={<EnergySavingsLeafIcon />} />
+		<Alert icon={<EnergySavingsLeafIcon />}>Select chat to start conversation. </Alert>
 	)
 }

@@ -1,4 +1,4 @@
-import { collection, doc, query, orderBy, where, limit, getDocs, getDocs } from "firebase/firestore"
+import { collection, doc, query, orderBy, where, limit, getDocs } from "firebase/firestore"
 import { db } from "shared/api/firebase"
 import { IMessage } from "shared/libs/types"
 

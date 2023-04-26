@@ -1,17 +1,14 @@
 import { Box } from "@mui/material"
-import { currentChatModel } from "entities/current-chat"
 import { ChatBar } from "entities/chat-list/ui/ChatBar"
-import { useNavigate } from "react-router"
 import { getUser } from "shared/api/firebase"
+import { chatListModel } from "entities/chat-list"
 import { useUser } from "shared/libs/hooks/useUser"
 
 export const ChatList = () => {
+	const { user } = useUser()
+	console.log('user: ', user);
 
-	const chatList = currentChatModel.useCurrentChat()
-	const history = useNavigate()
-
-	const hancleClick: React.MouseEventHandler<HTMLLIElement> = (e) => {
-	}
+	const chatList = chatListModel.useChatList(user?.uid)
 
 	return (
 		<Box>

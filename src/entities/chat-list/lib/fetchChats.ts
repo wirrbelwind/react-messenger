@@ -5,6 +5,8 @@ import { formatRawChat } from "shared/libs/formatRawChat"
 import { fetchCompanion } from "shared/libs/fetchCompanion"
 
 export async function fetchChats(uid: string): Promise<IChat[]> {
+	console.log('fetchChats');
+	
 	const currentUserDocRef = doc(db, 'users', uid)
 
 	//make a query that requests all the chats where current user consists in

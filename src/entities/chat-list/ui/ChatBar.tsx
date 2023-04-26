@@ -1,9 +1,8 @@
-import { Avatar, Box, ListItem, ListItemAvatar, ListItemProps, ListItemText, Paper, styled, Typography, useTheme } from "@mui/material"
+import { Avatar, ListItemAvatar,  ListItemText } from "@mui/material"
 import { Link } from "react-router-dom"
-import { getUser } from "shared/api/firebase"
 import { formatDate } from "shared/libs/formatDate"
-import { IChat, isGroupChat, isPrivateChat } from "shared/libs/types"
-import { ChatName, Container, LastMsg, DateText, StatusText } from "./styled"
+import { IChat } from "shared/libs/types"
+import { ChatName, Container, DateText } from "./styled"
 
 interface Props {
 	viewerID?: string | null
@@ -12,11 +11,6 @@ interface Props {
 
 
 export const ChatBar = ({ viewerID, chat }: Props) => {
-	const theme = useTheme()
-
-	const isGroup = isGroupChat(chat)
-	const isPrivate = isPrivateChat(chat)
-
 	const date = formatDate(chat.lastMessage?.timestamp.seconds)
 
 	let lastMsgTxt = chat.lastMessage?.text || ''
@@ -35,7 +29,7 @@ export const ChatBar = ({ viewerID, chat }: Props) => {
 			{/* column of primary text: name of chat and text of message */}
 			<ListItemText
 				primary={<ChatName>{chat.name}</ChatName>}
-				secondary={chat.name}
+				secondary={chat.lastMessage?.text}
 			/>
 			{
 				chat.lastMessage &&

@@ -20,7 +20,7 @@ export async function fetchMessages(chatID: string, client: QueryClient): Promis
 
 		client.setQueryData(
 			tanstackKeys.MESSAGES.GET(chatID),
-			(messages: any) => [...messages, ...newMessages]
+			(messages: IMessage[] | undefined) =>  [...(messages ?? []), ...newMessages]
 		)
 	})
 

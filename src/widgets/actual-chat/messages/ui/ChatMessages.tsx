@@ -19,18 +19,6 @@ const Container = styled(Box)({
 })
 
 export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
-
-	// const msg = useMsgAndQueueMsg(chatID, msgQueue)
-	// const messages = messagesModel.useMessages(chatID)
-	// useEffect(() => {
-	// 	console.log('подписка');
-	// 	const subscription = messages.data?.subscription()
-
-	// 	return () => {
-	// 		if (subscription) subscription()
-	// 		console.log('отписка');
-	// 	}
-	// }, [chatID, messages.data])
 	const chatDocRef = doc(db, 'chats', chatID)
 
 	const msgQuery = query(

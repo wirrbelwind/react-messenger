@@ -1,13 +1,15 @@
-import { useAuthState } from "react-firebase-hooks/auth"
-import { Navigate, Outlet, useNavigate } from "react-router"
+import { Navigate, Outlet } from "react-router"
 import routeConfig from "shared/consts/routeConfig"
-import { authModule } from "shared/api/firebase"
 import { useUser } from "shared/libs/hooks/useUser"
 
 export const CheckAuthRoute = () => {
 
-	const [user, loading, error] = useAuthState(authModule)
-	if (!user && !loading && !error) return <Navigate to={routeConfig.public.SIGNIN}/> 
+	const { user, loading, error } = useUser()
+	if (!user && !loading) {
+		return <Navigate to={routeConfig.public.SIGNIN} />
+	}
 
-	return <Outlet />
+	else {
+		return <Outlet />
+	}
 }

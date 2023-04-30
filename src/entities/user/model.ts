@@ -1,28 +1,17 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { tanstackKeys } from "shared/consts/tanstack-keys";
-import { useEffect, useState } from "react";
-import { authModule, getUser } from "shared/api/firebase";
+import { authModule } from "shared/api/firebase";
+import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignOut as useSignOutFirebase } from 'react-firebase-hooks/auth'
 
+export function useCreateUser() {
+  const hook = useCreateUserWithEmailAndPassword(authModule)
+  return hook
+}
 
-export const useCreateUser = () => useMutation<unknown, unknown, { email: string, pwd: string }>
-  ({
-    mutationFn: ({ email, pwd }) => createUserWithEmailAndPassword(authModule, email, pwd),
-    mutationKey: tanstackKeys.USER.CREATE
-  })
+export function useSignin() {
+  const hook = useSignInWithEmailAndPassword(authModule)
+  return hook
+}
 
-export const useSignin = () => useMutation<unknown, unknown, { email: string, pwd: string }>
-  ({
-    mutationFn: ({ email, pwd }) => signInWithEmailAndPassword(authModule, email, pwd),
-    mutationKey: tanstackKeys.USER.SIGNIN
-  })
-
-export const useLogout = () => {
-  const user = getUser()
-
-  return useMutation({
-    mutationFn: () => signOut(authModule),
-    mutationKey: tanstackKeys.USER.SIGN_OUT,
-    
-  })
+export function useSignOut() {
+  const hook = useSignOutFirebase(authModule)
+  return hook
 }

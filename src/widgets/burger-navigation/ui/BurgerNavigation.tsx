@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom"
 import SettingsIcon from '@mui/icons-material/Settings';
 import { navs } from "./navigation-list";
+import { userModel } from "entities/user";
 
 export const BurgerNavigation = () => {
 	const [open, setOpen] = useState(false)
@@ -29,6 +30,7 @@ export const BurgerNavigation = () => {
 					<ListItemText> {nav.label} </ListItemText>
 				</ListItem>)
 			}
+			<button onClick={() => {userModel.useLogout()}}>Log Out</button>
 
 		</SwipeableDrawer>
 

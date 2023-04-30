@@ -1,7 +1,7 @@
-export type HOC<T> = (Component: React.ComponentType<T>) => React.ComponentType<T>;
+export type HOC = (Component: React.ComponentType) => React.ComponentType;
 
 // Define the composeHOCs function
-export const composeHOCs = <T extends {}>(...hocs: HOC<T>[]) => (Component: React.ComponentType<T>) => {
+export const composeHOCs = (...hocs: HOC[]) => (Component: React.ComponentType) => {
 	return hocs.reduceRight((wrappedComponent, hoc) => {
 		return hoc(wrappedComponent);
 	}, Component);

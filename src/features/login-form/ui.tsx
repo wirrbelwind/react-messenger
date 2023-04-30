@@ -19,9 +19,6 @@ export const LoginForm = () => {
 	}
 	if (signin.isSuccess) navigate('/', { replace: true })
 
-	if (signin.isError) console.log('error', signin.error);
-	if (signin.isLoading) console.log('lodaing');
-	if (signin.isSuccess) console.log(signin.data);
 	return (
 		<Box
 			component={'form'}

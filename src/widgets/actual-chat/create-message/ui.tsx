@@ -8,7 +8,7 @@ import useInput from "shared/libs/hooks/useInput";
 import { IPendingMessage } from "shared/libs/types";
 import { ArrowButton } from "shared/ui/ArrowButton";
 
-interface Props extends BoxProps{
+interface Props extends BoxProps {
 	chatID: string
 	sendMsg: (newMsg: IPendingMessage) => void
 	withSubmitBtn?: boolean

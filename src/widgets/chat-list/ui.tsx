@@ -6,7 +6,6 @@ import { useUser } from "shared/libs/hooks/useUser"
 
 export const ChatList = () => {
 	const { user } = useUser()
-	console.log('user: ', user);
 
 	const chatList = chatListModel.useChatList(user?.uid)
 

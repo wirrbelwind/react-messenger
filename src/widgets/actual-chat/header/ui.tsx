@@ -18,7 +18,6 @@ export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 	const { user } = useUser()
 
 	const chat = currentChatModel.useCurrentChat(chatID, user?.uid)
-	console.log('current chat header', chat);
 
 	return (
 		<Container>

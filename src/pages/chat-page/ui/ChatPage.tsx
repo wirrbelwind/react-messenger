@@ -10,40 +10,27 @@ import { BehaviorSubject } from "rxjs";
 import { IPendingMessage } from "shared/libs/types";
 import { useState, useEffect } from 'react';
 import { useCreateMessage } from "features/send-message/lib";
+import { sendMsgModel } from "features/send-message";
+
 
 export const ChatPage = () => {
 	const chatID = useParams<'chatID'>().chatID ?? ''
 
+	const sendMsg = useCreateMessage(chatID)
+	const [queue, setQueue] = useState<IPendingMessage[]>([])
 
-	// const msgQueue = useMsgQueue(chatID)
-	// console.log('chat page render', msgQueue);
+	const addMessage = async (newMsg: IPendingMessage) => {
+		console.log('start add msg');
 
-	// queue logic
-	const msgQueue = new BehaviorSubject<IPendingMessage[]>([])
-	const queueState = useState(msgQueue.getValue())
+		setQueue(prev => [...prev, newMsg])
+		await sendMsg.mutateAsync({ msg: newMsg })
+		setQueue(prev => prev.filter(msg => msg.timestamp.toMillis() !== newMsg.timestamp.toMillis()))
 
-	const sendMessage = useCreateMessage(chatID)
-
-	useEffect(() => {
-		msgQueue.subscribe(async (queue) => {
-			if (queue.length > 0) {
-				const message = queue[0]
-				// Send message to backend API
-				await sendMessage.mutateAsync({ msg: message })
-				// Remove the sent message from the queue
-				msgQueue.next(queue.slice(1));
-				queueState[1](prev => prev.slice(1))
-			}
-		})
-	}, [])
-
-	const addMessage = (newMsg: IPendingMessage) => {
-		msgQueue.next([...msgQueue.value, newMsg])
-		queueState[1](prev => [...prev, newMsg])
+		console.log('end add msg');
 	}
 	// queue logic
 
-	const isChat = !!chatID && !!msgQueue
+	const isChat = !!chatID
 	return (
 		<ChatIDContext chatID={chatID}>
 			<GridContainer container>
@@ -69,7 +56,7 @@ export const ChatPage = () => {
 
 						<Messages
 							chatID={chatID}
-							msgQueue={queueState[0]}
+							msgQueue={queue}
 						/>
 
 						<CreateMsgFooter

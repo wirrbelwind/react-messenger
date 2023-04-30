@@ -1,8 +1,8 @@
 import { Routing } from 'pages/Routing';
 import { composeHOCs } from 'shared/providers/composeHOCS';
-import { withRouter } from 'shared/providers/withRouter';
 import { withQueryClient } from 'app/providers/withQueryClient';
-import { withTheme } from 'shared/providers/withTheme';
+import { withRouter } from './providers/withRouter';
+import { withTheme } from './providers/withTheme';
 
 const withProviders = composeHOCs(withRouter, withQueryClient, withTheme)
 

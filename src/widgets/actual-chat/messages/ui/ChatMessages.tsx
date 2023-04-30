@@ -19,14 +19,7 @@ const Container = styled(Box)({
 })
 
 export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
-	const chatDocRef = doc(db, 'chats', chatID)
-
-	const msgQuery = query(
-		collection(db, 'messages'),
-		where('chatID', '==', chatDocRef),
-		orderBy("timestamp", "asc")
-	)
-	const [messages] = useCollectionData(msgQuery)
+	const [messages] = messagesModel.useMessages2(chatID)
 
 	return (
 		<Container>
@@ -38,6 +31,7 @@ export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
 					key={msg.timestamp.toMillis()}
 				/>)
 			}
+
 			{
 				msgQueue?.map(msg => <Message
 					message={msg}

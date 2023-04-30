@@ -9,15 +9,15 @@ export const LoginForm = () => {
 	const login = useInput<string>('')
 	const pwd = useInput<string>('')
 
-	const signin = userModel.useSignin()
+	const [signin, user, loading, error] = userModel.useSignin()
 	const createUser = userModel.useCreateUser()
 
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
+		signin(login.value, pwd.value)
 
-		signin.mutate({ email: login.value, pwd: pwd.value })
 	}
-	if (signin.isSuccess) navigate('/', { replace: true })
+	if (user) navigate('/', { replace: true })
 
 	return (
 		<Box

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { useChatID } from 'shared/providers/ChatContext';
-import { Sidebar } from 'shared/ui/Sidebar';
+import { Sidebar } from 'widgets/sidebar';
 
 
 export const SettingsPage = () => {

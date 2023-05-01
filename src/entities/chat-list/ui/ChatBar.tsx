@@ -1,7 +1,7 @@
-import { Avatar, ListItemAvatar,  ListItemText } from "@mui/material"
+import { Avatar, ListItemAvatar, ListItemText } from "@mui/material"
 import { Link } from "react-router-dom"
-import { formatDate } from "shared/libs/formatDate"
-import { IChat } from "shared/libs/types"
+import { formatDate } from "shared/libs/utils/formatDate"
+import { IChat } from "shared/libs/interfaces"
 import { ChatName, Container, DateText } from "./styled"
 
 interface Props {

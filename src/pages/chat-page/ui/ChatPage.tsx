@@ -1,11 +1,11 @@
 import { Grid } from "@mui/material";
 import { ChatList } from "widgets/chat-list";
-import { Sidebar } from "shared/ui/Sidebar";
+import { Sidebar } from "widgets/sidebar";
 import { useParams } from "react-router";
 import { ChatIDContext } from "shared/providers/ChatContext";
 import { ChatContainer, CreateMsgFooter, GridContainer, Header, Messages } from "./styled";
 import { NotChatAlert } from "./NotChatAlert";
-import { IPendingMessage } from "shared/libs/types";
+import { IPendingMessage } from "shared/libs/interfaces";
 import { useState } from 'react';
 import { useCreateMessage } from "features/send-message/lib";
 

@@ -1,6 +1,6 @@
 import { collection, doc, query, orderBy, where, limit, getDocs } from "firebase/firestore"
 import { db } from "shared/api/firebase"
-import { IMessage } from "shared/libs/types"
+import { IMessage } from "shared/libs/interfaces"
 
 export async function fetchLastMsg(chatID: string): Promise<IMessage> {
 	const msgCollRef = collection(db, 'messages')

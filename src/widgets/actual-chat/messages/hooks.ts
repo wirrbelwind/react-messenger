@@ -1,5 +1,5 @@
 import { messagesModel } from "entities/messages"
-import { IMessage, IPendingMessage } from "shared/libs/types"
+import { IMessage, IPendingMessage } from "shared/libs/interfaces"
 
 export function useMsgAndQueueMsg(chatID: string, queue: IPendingMessage[] | undefined) {
 	const existingMsgs = messagesModel.useMessages(chatID)

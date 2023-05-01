@@ -1,5 +1,5 @@
 import { getDoc } from "firebase/firestore"
-import { ICompanion, RawChat } from "shared/libs/types"
+import { ICompanion, RawChat } from "shared/libs/interfaces"
 
 export async function fetchCompanion(chat: RawChat, viewerUID: string): Promise<ICompanion> {
 	const companionRef = chat.usersID.find(c => c.id !== viewerUID)

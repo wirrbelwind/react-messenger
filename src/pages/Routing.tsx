@@ -4,7 +4,7 @@ import { SigninPage } from "./auth/signin-page";
 import { SignupPage } from "./auth/signup-page";
 import { ChatPage } from "./chat-page/ui/ChatPage";
 import { SettingsPage } from "./settings-page";
-import { CheckAuthRoute } from "shared/ui/CheckAuthRoute/CheckAuthRoute";
+import { CheckAuthRoute } from "pages/CheckAuthRoute";
 
 export const Routing = () => {
     return (

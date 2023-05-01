@@ -6,7 +6,7 @@ import useInput from "shared/libs/hooks/useInput"
 
 export const LoginForm = () => {
 	const navigate = useNavigate()
-	const login = useInput<string>('')
+	const login = useInput
 	const pwd = useInput<string>('')
 
 	const [signin, user, loading, error] = userModel.useSignin()

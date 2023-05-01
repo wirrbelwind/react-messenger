@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addDoc, collection, getDoc } from "firebase/firestore"
 import { tanstackKeys } from "shared/consts/tanstack-keys"
 import { db, getUser } from "shared/api/firebase"
-import { IMessage, IPendingMessage } from "shared/libs/types"
+import { IMessage, IPendingMessage } from "shared/libs/interfaces"
 
 async function sendMessage(msg: IPendingMessage) {
 

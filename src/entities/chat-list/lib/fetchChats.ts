@@ -1,11 +1,11 @@
 import { collection, doc, getDocs, query, where } from "firebase/firestore"
 import { db } from "shared/api/firebase"
-import { IChat, RawChat } from "shared/libs/types"
+import { IChat, RawChat } from "shared/libs/interfaces"
 import { formatRawChat } from "shared/libs/formatRawChat"
-import { fetchCompanion } from "shared/libs/fetchCompanion"
+import { fetchCompanion } from "shared/libs/fetchers/fetchCompanion"
 
 export async function fetchChats(uid: string): Promise<IChat[]> {
-	
+
 	const currentUserDocRef = doc(db, 'users', uid)
 
 	//make a query that requests all the chats where current user consists in

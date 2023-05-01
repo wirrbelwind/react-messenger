@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BehaviorSubject } from "rxjs";
-import { IPendingMessage } from "shared/libs/types";
+import { IPendingMessage } from "shared/libs/interfaces";
 import { useCreateMessage } from "./lib";
 
 export function useMsgQueue(chatID: string) {

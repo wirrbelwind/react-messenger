@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { tanstackKeys } from "shared/consts/tanstack-keys"
-import { IChat, RawChat } from "shared/libs/types"
+import { IChat, RawChat } from "shared/libs/interfaces"
 import { fetchChats } from "./lib/fetchChats"
 import { fetchLastMsg } from "./lib/fetchLastMsg"
 

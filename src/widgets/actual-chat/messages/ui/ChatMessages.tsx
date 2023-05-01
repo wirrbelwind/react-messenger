@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Message, messagesModel } from "entities/messages"
 import { FC, useEffect } from "react"
-import { IMessage, IPendingMessage } from "shared/libs/types";
+import { IMessage, IPendingMessage } from "shared/libs/interfaces";
 import { styled } from '@mui/material'
 import { useMsgAndQueueMsg } from "../hooks";
 import { NoMessagesAlert } from "./NoMessagesAlert";

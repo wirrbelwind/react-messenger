@@ -1,12 +1,12 @@
-import { Box, BoxProps } from "@mui/material"
+import { Box, BoxProps, IconButton } from "@mui/material"
 import { EmojiPicker } from "features/emoji-picker";
 import { MsgInput } from "features/send-message";
 import { doc, Timestamp } from "firebase/firestore";
 import { FC } from "react";
 import { db, getUser } from "shared/api/firebase";
 import useInput from "shared/libs/hooks/useInput";
-import { IPendingMessage } from "shared/libs/types";
-import { ArrowButton } from "shared/ui/ArrowButton";
+import { IPendingMessage } from "shared/libs/interfaces";
+import SendIcon from '@mui/icons-material/Send';
 
 interface Props extends BoxProps {
 	chatID: string
@@ -56,11 +56,9 @@ export const CreateMessage: FC<Props> = ({
 
 			{
 				withSubmitBtn &&
-				<ArrowButton
-					direction='right'
-					type='submit'
-					disabled={!input.value}
-				/>
+				<IconButton type='submit' disabled={!input.value}>
+					<SendIcon />
+				</IconButton>
 			}
 		</Box>
 	)

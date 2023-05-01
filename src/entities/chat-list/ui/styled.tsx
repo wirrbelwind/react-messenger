@@ -1,5 +1,4 @@
-import { ListItem, ListItemProps, styled, Typography, useTheme } from "@mui/material";
-import React, { FC } from "react";
+import { ListItem, styled, Typography } from "@mui/material";
 
 export const Container = styled(ListItem)(({ theme }) => ({
 	':hover': { backgroundColor: theme.palette.background.paper }
@@ -9,33 +8,32 @@ interface ITextComponent {
 	children: string
 }
 
-export const ChatName: FC<ITextComponent> = ({ children }) => {
+export const ChatName = ({ children }: ITextComponent) => {
 	return (
 		<Typography variant="body1" color='primary.dark'>
 			{children}
-		</Typography>)
-
+		</Typography>
+	)
 }
 
-export const LastMsg: FC<ITextComponent> = ({ children }) => {
+export const LastMsg = ({ children }: ITextComponent) => {
 	return (
 		<Typography variant="body2" color='primary'>
 			{children}
-		</Typography>)
-
+		</Typography>
+	)
 }
-export const DateText: FC<ITextComponent> = ({ children }) => {
+export const DateText = ({ children }: ITextComponent) => {
 	return (
 		<Typography variant='body2' color='primary.dark'>
 			{children}
-		</Typography>)
-
+		</Typography>
+	)
 }
-export const StatusText: FC<ITextComponent> = ({ children }) => {
+export const StatusText = ({ children }: ITextComponent) => {
 	return (
 		<Typography variant='body2' color='primary.light'>
 			{children}
-		</Typography>)
-
+		</Typography>
+	)
 }
-// variant='body2' color='primary.dark'

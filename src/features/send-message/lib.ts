@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addDoc, collection, getDoc } from "firebase/firestore"
-import { tanstackKeys } from "shared/consts/tanstack-keys"
-import { db, getUser } from "shared/api/firebase"
-import { IMessage, IPendingMessage } from "shared/libs/interfaces"
+import { db } from "shared/api/firebase"
+import tanstackConfig from "shared/configs/tanstack.config"
+import { IMessage, IPendingMessage } from "shared/libs/interfaces/messages"
 
 async function sendMessage(msg: IPendingMessage) {
 
@@ -17,6 +17,6 @@ export function useCreateMessage(chatID: string) {
 		{ msg: IPendingMessage } // mutate vars
 	>({
 		mutationFn: ({ msg }) => sendMessage(msg),
-		mutationKey: tanstackKeys.MESSAGES.SEND(chatID),
+		mutationKey: tanstackConfig.MESSAGES.SEND(chatID),
 	})
 }

@@ -1,8 +1,8 @@
 import { QueryClient } from "@tanstack/react-query"
 import { Unsubscribe, collection, doc, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore"
-import { tanstackKeys } from "shared/consts/tanstack-keys"
 import { db } from "shared/api/firebase"
-import { IMessage } from "shared/libs/interfaces"
+import tanstackConfig from "shared/configs/tanstack.config"
+import { IMessage } from "shared/libs/interfaces/messages"
 
 export async function fetchMessages(chatID: string, client: QueryClient): Promise<{
 	messages: IMessage[],
@@ -26,7 +26,7 @@ export async function fetchMessages(chatID: string, client: QueryClient): Promis
 			id: data.id
 		}))
 		client.setQueryData(
-			tanstackKeys.MESSAGES.GET(chatID),
+			tanstackConfig.MESSAGES.GET(chatID),
 			() => [...messages]
 		)
 	})

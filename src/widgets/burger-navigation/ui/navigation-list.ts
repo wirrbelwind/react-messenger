@@ -1,6 +1,6 @@
 import { SvgIconComponent } from "@mui/icons-material"
 import SettingsIcon from '@mui/icons-material/Settings';
-import routeConfig from "shared/consts/routeConfig";
+import routeConfig from "shared/configs/routes.config";
 
 interface Navigation {
 	to: string

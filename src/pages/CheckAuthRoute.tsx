@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router"
-import routeConfig from "shared/consts/routeConfig"
+import routeConfig from "shared/configs/routes.config"
 import { useUser } from "shared/libs/hooks/useUser"
 
 export const CheckAuthRoute = () => {

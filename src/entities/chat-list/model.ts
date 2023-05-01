@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
-import { tanstackKeys } from "shared/consts/tanstack-keys"
-import { IChat, RawChat } from "shared/libs/interfaces"
 import { fetchChats } from "./lib/fetchChats"
 import { fetchLastMsg } from "./lib/fetchLastMsg"
+import tanstackConfig from "shared/configs/tanstack.config"
+import { IChat } from "shared/libs/interfaces/chats"
 
 export const useChatList = (userID: string | undefined) => {
 	const hook = useQuery<IChat[]>({
 		enabled: !!userID,
 		queryFn: () => queryChatList(userID!),
-		queryKey: tanstackKeys.CHATLIST.GET_LIST
+		queryKey: tanstackConfig.CHATLIST.GET_LIST
 	})
 	return hook
 }

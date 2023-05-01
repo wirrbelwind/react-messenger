@@ -1,4 +1,4 @@
-import PathRoutes from "shared/consts/routeConfig";
+import PathRoutes from "shared/configs/routes.config";
 import { Route, Routes } from "react-router";
 import { SigninPage } from "./auth/signin-page";
 import { SignupPage } from "./auth/signup-page";

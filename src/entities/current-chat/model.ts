@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { tanstackKeys } from "shared/consts/tanstack-keys"
 import { queryCurrentChat } from "./lib/querryCurrentChat"
+import tanstackConfig from "shared/configs/tanstack.config"
 
 export const useCurrentChat = (
 	chatID: string | undefined | null,
@@ -10,6 +10,6 @@ export const useCurrentChat = (
 	return useQuery({
 		enabled: (!!chatID && !!userID),
 		queryFn: () => queryCurrentChat(chatID!, userID!),
-		queryKey: tanstackKeys.ACTUAL_CHAT.GET(chatID!),
+		queryKey: tanstackConfig.ACTUAL_CHAT.GET(chatID!),
 	})
 }

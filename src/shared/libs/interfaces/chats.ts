@@ -10,13 +10,13 @@ export interface IBaseChat {
 
 export interface IPrivateChat extends IBaseChat {
 	companion: IUser
- }
-export interface IGroupChat extends IBaseChat { 
+}
+export interface IGroupChat extends IBaseChat {
 	group: IGroupChat
- }
+}
 
 export type IChat = IPrivateChat | IGroupChat
-
+export type IChatWithoutLastMsg = Omit<IChat, 'lastMsg'>
 
 export interface IGroupChatData {
 	description?: string

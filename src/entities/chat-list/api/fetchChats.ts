@@ -1,24 +1,17 @@
 import { where } from "firebase/firestore"
 import { FirestoreApi } from "shared/api/firestore-api"
-import { IBaseChat, IChat, IGroupChat, IPrivateChat } from "shared/libs/interfaces/chats"
-import { fetchCompanion } from "./fetchCompanion"
-import { fetchGroup } from "./fetchGroup"
+import { IBaseChat, IChatWithoutLastMsg } from "shared/libs/interfaces/chats"
+import { expandBaseChat } from "shared/api/fetchers/expandBaseChat"
 
-export async function fetchChats(api: FirestoreApi, uid: string): Promise<IChat[]> {
-	const chatsCondition = where('usersID', 'array-contains', 'uid')
+export async function fetchChats(api: FirestoreApi, uid: string): Promise<IChatWithoutLastMsg[]> {
+	const chatsCondition = where('usersID', 'array-contains', uid)
 
 	const baseChats = await api.readMany<IBaseChat>('chat_base', chatsCondition)
-	const chats: IChat[] = []
+	const chats: IChatWithoutLastMsg[] = []
 
 	await Promise.all(baseChats.map(async baseChat => {
-		if (baseChat.type === 'direct') {
-			const privateChat: IPrivateChat = await fetchCompanion(api, baseChat)
-			chats.push(privateChat)
-		}
-		else if (baseChat.type === 'group') {
-			const groupData: IGroupChat = await fetchGroup(api, baseChat)
-			chats.push(groupData)
-		}
+		const definedChat = await expandBaseChat(api, baseChat)
+		if (definedChat) chats.push(definedChat)
 	}))
 
 	return chats

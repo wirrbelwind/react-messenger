@@ -1,5 +1,5 @@
 import { Box, BoxProps, Typography } from '@mui/material'
-import { CurrentChatBar, currentChatModel } from 'entities/current-chat'
+import { CurrentChatBar, currentChatModel } from 'entities/chat'
 import { FC } from 'react'
 import { styled } from "@mui/material";
 import { useUser } from 'shared/libs/hooks/useUser';

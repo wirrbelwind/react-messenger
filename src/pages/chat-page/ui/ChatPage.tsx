@@ -5,13 +5,12 @@ import { useParams } from "react-router";
 import { ChatIDContext } from "shared/providers/ChatContext";
 import { ChatContainer, CreateMsgFooter, GridContainer, Header, Messages } from "./styled";
 import { NotChatAlert } from "./NotChatAlert";
-import { IPendingMessage } from "shared/libs/interfaces";
 import { useState } from 'react';
 import { useCreateMessage } from "features/send-message/lib";
 
 
 export const ChatPage = () => {
-	const chatID = useParams<'chatID'>().chatID ?? ''
+	const chatID = useParams<'chatID'>().chatID ?? null
 
 	const sendMsg = useCreateMessage(chatID)
 	const [queue, setQueue] = useState<IPendingMessage[]>([])

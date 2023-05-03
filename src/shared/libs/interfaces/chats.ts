@@ -1,36 +1,25 @@
 import { DocumentReference } from "firebase/firestore"
-
-// export interface RawChat {
-// 	id: string
-// 	type: 'direct' | 'group'
-// 	usersID: DocumentReference[]
-// 	group?: GroupChatData
-// 	companion?: ICompanion
-// 	lastMessage?: IMessage
-// }
-// export interface IGroupChat extends GroupChatData, Omit<RawChat, 'companion' | 'group'> {
-// 	type: 'group'
-// }
-// export interface IPrivateChat extends ICompanion, Omit<RawChat, 'companion' | 'group'> {
-// 	type: 'direct'
-// }
+import { IUser } from "./users"
+import { IMessage } from "./messages"
 export interface IBaseChat {
 	id: string
 	type: 'direct' | 'group'
-	usersID: DocumentReference[]
+	usersID: DocumentReference<IUser>[]
+	lastMsg?: IMessage
 }
-export interface IPrivateChat extends IBaseChat, ICompanion {}
-export interface IGroupChat extends IBaseChat, IGroupChatData {}
+
+export interface IPrivateChat extends IBaseChat {
+	companion: IUser
+ }
+export interface IGroupChat extends IBaseChat { 
+	group: IGroupChat
+ }
 
 export type IChat = IPrivateChat | IGroupChat
 
-export interface ICompanion {
-	companionID: string
-	name: string
-	photoURL?: string
-}
+
 export interface IGroupChatData {
-	descr?: string
+	description?: string
 	name: string
 	ownerID: DocumentReference
 	photoURL: string

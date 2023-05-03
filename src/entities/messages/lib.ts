@@ -1,6 +1,6 @@
-import { QueryClient } from "@tanstack/react-query"
+import { QueryClient, useQueryClient } from "@tanstack/react-query"
 import { Unsubscribe, collection, doc, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore"
-import { db } from "shared/api/firebase"
+import api from "shared/api"
 import tanstackConfig from "shared/configs/tanstack.config"
 import { IMessage } from "shared/libs/interfaces/messages"
 
@@ -9,10 +9,10 @@ export async function fetchMessages(chatID: string, client: QueryClient): Promis
 	subscription: () => Unsubscribe
 }> {
 	// const client = useQueryClient()
-	const chatDocRef = doc(db, 'chats', chatID)
+	const chatDocRef = doc(api.db, 'chats', chatID)
 
 	const msgQuery = query(
-		collection(db, 'messages'),
+		collection(api.db, 'messages'),
 		where('chatID', '==', chatDocRef),
 		orderBy("timestamp", "asc")
 	)
@@ -25,10 +25,11 @@ export async function fetchMessages(chatID: string, client: QueryClient): Promis
 			...data.data() as IMessage,
 			id: data.id
 		}))
-		client.setQueryData(
-			tanstackConfig.MESSAGES.GET(chatID),
-			() => [...messages]
-		)
+		// client.setQueryData(
+		// 	tanstackConfig.MESSAGES.GET(chatID),
+		// 	() => [...messages]
+		// )
+		client.invalidateQueries(tanstackConfig.MESSAGES.GET(chatID))
 	})
 
 	return {

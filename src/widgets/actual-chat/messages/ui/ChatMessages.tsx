@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { Message, messagesModel } from "entities/messages"
 import { FC, useEffect } from "react"
-import { IMessage, IPendingMessage } from "shared/libs/interfaces";
 import { styled } from '@mui/material'
 import { useMsgAndQueueMsg } from "../hooks";
 import { NoMessagesAlert } from "./NoMessagesAlert";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, doc, orderBy, query, where } from "firebase/firestore";
-import { db } from "shared/api/firebase";
+import { Unsubscribe, collection, doc, orderBy, query, where } from "firebase/firestore";
+import { IMessage, IPendingMessage } from "shared/libs/interfaces/messages";
+
 interface ChatMessagesrProps {
 	chatID: string
 	msgQueue?: IPendingMessage[]
@@ -19,13 +19,24 @@ const Container = styled(Box)({
 })
 
 export const ChatMessages: FC<ChatMessagesrProps> = ({ chatID, msgQueue }) => {
-	const [messages] = messagesModel.useMessages2(chatID)
+	const messages = messagesModel.useMessages(chatID)
+
+	useEffect(() => {
+		const subcription = messages.data?.subscription
+		let unsub: null | Unsubscribe = null;
+
+		if (subcription) unsub = subcription()
+
+		return () => {
+			if (unsub) unsub()
+		}
+	}, [])
 
 	return (
 		<Container>
 			{!messages && <NoMessagesAlert />}
 			{
-				messages?.map(msg => <Message
+				messages?.data?.messages.map(msg => <Message
 					message={msg as IMessage}
 					onContextMenu={(e) => { e.preventDefault(); alert(msg.text) }}
 					key={msg.timestamp.toMillis()}

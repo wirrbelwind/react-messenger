@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import { fetchMessages } from "./lib"
 import { collection, doc, orderBy, query, Unsubscribe, where } from "firebase/firestore"
-import { db } from "shared/api/firebase"
+import api from "shared/api"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import tanstackConfig from "shared/configs/tanstack.config"
 import { IMessage } from "shared/libs/interfaces/messages"
@@ -18,10 +18,10 @@ export const useMessages = (chatID: string): UseQueryResult<{
 }
 
 export function useMessages2(chatID: string) {
-	const chatDocRef = doc(db, 'chats', chatID)
+	const chatDocRef = doc(api.db, 'chats', chatID)
 
 	const msgQuery = query(
-		collection(db, 'messages'),
+		collection(api.db, 'messages'),
 		where('chatID', '==', chatDocRef),
 		orderBy("timestamp", "asc")
 	)

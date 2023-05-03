@@ -1,6 +1,6 @@
-import { IChat, IGroupChat, IPrivateChat, RawChat } from "shared/libs/interfaces";
+import { IChat, IGroupChat, IPrivateChat, IBaseChat } from "shared/libs/interfaces/chats";
 
-export function formatRawChat(chat: RawChat): IChat | null {
+export function convertToTypedChat(chat: IBaseChat): IChat | null {
 	switch (chat.type) {
 		case "direct":
 			if (chat.companion) {

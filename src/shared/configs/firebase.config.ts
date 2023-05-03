@@ -1,4 +1,6 @@
-export default {
+import { FirebaseOptions } from "firebase/app";
+
+export const firebaseConfig:FirebaseOptions = {
   apiKey: "AIzaSyCnZancYmemnmJAOt764iGxcTsyv_6KX9M",
   authDomain: "messenger-6ea53.firebaseapp.com",
   databaseURL: "https://messenger-6ea53-default-rtdb.europe-west1.firebasedatabase.app",

@@ -6,7 +6,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore"
 import tanstackConfig from "shared/configs/tanstack.config"
 import { IMessage } from "shared/libs/interfaces/messages"
 
-export const useMessages = (chatID: string): UseQueryResult<{
+export const useChatMessages = (chatID: string): UseQueryResult<{
 	messages: IMessage[],
 	subscription: () => Unsubscribe
 }> => {

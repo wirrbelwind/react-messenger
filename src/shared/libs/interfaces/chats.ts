@@ -1,6 +1,10 @@
 import { DocumentReference } from "firebase/firestore"
 import { IUser } from "./users"
 import { IMessage } from "./messages"
+
+//general
+export type ChatType = 'group' | 'direct'
+
 export interface IBaseChat {
 	id: string
 	type: 'direct' | 'group'
@@ -8,19 +12,26 @@ export interface IBaseChat {
 	lastMsg?: IMessage
 }
 
-export interface IPrivateChat extends IBaseChat {
-	companion: IUser
-}
-export interface IGroupChat extends IBaseChat {
-	group: IGroupChat
-}
-
 export type IChat = IPrivateChat | IGroupChat
 export type IChatWithoutLastMsg = Omit<IChat, 'lastMsg'>
 
-export interface IGroupChatData {
-	description?: string
+// private chat
+export interface IPrivateChat extends IBaseChat, IPrivateChatData {
+	type: 'direct'
+}
+export interface IPrivateChatData {
 	name: string
-	ownerID: DocumentReference
-	photoURL: string
+	photoURL?: string
+	companion: DocumentReference
+}
+
+// group chat
+export interface IGroupChat extends IGroupChatData, IBaseChat {
+	type: 'group'
+}
+export interface IGroupChatData {
+	name: string
+	photoURL?: string
+	descr?: string
+	owner: DocumentReference
 }

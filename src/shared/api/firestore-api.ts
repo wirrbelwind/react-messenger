@@ -1,12 +1,12 @@
-import { DocumentReference, Firestore, QueryConstraint, collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, query } from "firebase/firestore";
-import { IBaseChat, IGroupChat, IPrivateChat } from "shared/libs/interfaces/chats";
+import { DocumentReference, Firestore, QueryConstraint, Unsubscribe, collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, query } from "firebase/firestore";
+import { IBaseChat, IGroupChat, IGroupChatData, IPrivateChat, IPrivateChatData } from "shared/libs/interfaces/chats";
 import { IMessage } from "shared/libs/interfaces/messages";
 import { IUser } from "shared/libs/interfaces/users";
 import { converter } from "./firebase-converter";
 
 // export type WithoutID<T> = Omit<T, 'id'>
 type collectionName = 'users' | 'chat_base' | 'chat_private' | 'chat_group' | 'messages'
-type collectionType = IUser | IBaseChat | IGroupChat | IPrivateChat | IMessage
+type collectionType = IUser | IBaseChat | IGroupChatData | IPrivateChatData | IMessage
 
 export class FirestoreApi {
 	private static instance: FirestoreApi;
@@ -49,7 +49,7 @@ export class FirestoreApi {
 		return (await getDoc(docRef)).data()
 	}
 
-	public async subscribe<T extends collectionType>(collectionName: collectionName, callback: (updatedDocument: T) => void, ...queryConstraints: QueryConstraint[]): Promise<() => void> {
+	public subscribe<T extends collectionType>(collectionName: collectionName, callback: (updatedDocument: T) => void, ...queryConstraints: QueryConstraint[]): Unsubscribe {
 		const q = query(collection(this.db, collectionName), ...queryConstraints)
 
 		const unsubscribe = onSnapshot(q, (querySnapshot) => {

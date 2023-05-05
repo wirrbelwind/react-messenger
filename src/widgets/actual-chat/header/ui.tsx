@@ -17,12 +17,12 @@ interface ChatHeaderProps extends BoxProps {
 export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 	const { user } = useUser()
 
-	const chat = currentChatModel.useCurrentChat(chatID, user?.uid)
+	const chat = currentChatModel.useChat(chatID, user?.uid)
 
 	return (
 		<Container>
 			{chat.isSuccess &&
-				<CurrentChatBar chat={chat.data} />
+				<CurrentChatBar chat={chat.data.data} />
 			}
 
 			{chat.isError &&

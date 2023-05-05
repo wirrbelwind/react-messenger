@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import tanstackConfig from "shared/configs/tanstack.config"
-import { doc, getDoc } from "firebase/firestore"
-import api from 'shared/api'
-import { IBaseChat, IChat, IChatWithoutLastMsg } from "shared/libs/interfaces/chats"
+import { IBaseChat, IPrivateChat } from "shared/libs/interfaces/chats"
 import { FirestoreApi } from "shared/api/firestore-api"
 import firestore from 'shared/api/index'
 import { expandBaseChat } from "shared/api/fetchers/expandBaseChat"
+import { where } from "firebase/firestore"
 
 export const useChat = (
 	chatID: string | null,
@@ -19,7 +18,7 @@ export const useChat = (
 	})
 }
 
-async function queryChat(api: FirestoreApi, chatID: string, uid: string): Promise<IChatWithoutLastMsg> {
+async function queryChat(api: FirestoreApi, chatID: string, uid: string) {
 	const baseChat = await api.readOneByID<IBaseChat>('chat_base', chatID)
 	if (!baseChat) throw new Error('Chat not found.')
 
@@ -29,5 +28,23 @@ async function queryChat(api: FirestoreApi, chatID: string, uid: string): Promis
 	const chat = await expandBaseChat(api, baseChat)
 	if (!chat) throw new Error('Chat defining was wrong.')
 
-	return chat
+	// call this function to subscribe
+	// Task: define type of callback
+	const subscription = (callback: any) => {
+		const baseSubscription = api.subscribe<IBaseChat>('chat_base', callback, where('id', '==', chatID))
+		const privateSubscription = api.subscribe<IPrivateChat>('chat_private', callback, where('id', '==', chatID))
+		const groupSubscription = api.subscribe<IPrivateChat>('chat_group', callback, where('id', '==', chatID))
+
+		return () => {
+			baseSubscription()
+			privateSubscription()
+			groupSubscription()
+		}
+	}
+
+
+	return {
+		data: chat,
+		subscription
+	}
 }

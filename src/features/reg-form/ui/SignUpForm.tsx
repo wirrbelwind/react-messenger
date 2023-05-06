@@ -2,8 +2,8 @@ import { Alert, Box, Button, Paper, styled, TextField, Typography } from "@mui/m
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
 // import { useSignupFormSteps } from "../model"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import { authModule } from "shared/api/firebase"
 import { FormData } from "../lib"
+import firebase from "shared/api"
 
 
 const Form = styled(Box)(({ theme }) => ({
@@ -27,10 +27,10 @@ export const SignUpForm = () => {
 		user,
 		loading,
 		error,
-	] = useCreateUserWithEmailAndPassword(authModule)
+	] = useCreateUserWithEmailAndPassword(firebase.authModule)
 
 	const onSubmit: SubmitHandler<FormData> = fields => {
-
+		1
 	}
 
 	return (

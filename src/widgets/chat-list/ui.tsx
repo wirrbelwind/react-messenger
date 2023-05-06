@@ -1,7 +1,6 @@
 import { Box } from "@mui/material"
-import { ChatBar } from "entities/chat-list/ui/ChatBar"
-import { getUser } from "shared/api/firebase"
 import { chatListModel } from "entities/chat-list"
+import { ChatBar } from "entities/chat-list/ui/ChatBar"
 import { useUser } from "shared/libs/hooks/useUser"
 
 export const ChatList = () => {
@@ -16,7 +15,7 @@ export const ChatList = () => {
 					<ChatBar
 						key={chat.id}
 						chat={chat}
-						viewerID={getUser()?.uid}
+						viewerID={user?.uid}
 					/>
 				)
 			}

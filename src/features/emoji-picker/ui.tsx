@@ -3,7 +3,7 @@ import React, { useState, FC, useMemo } from 'react';
 import emojiDataSet from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { UseInputReturnType } from 'shared/libs/hooks/useInput';
-import { randArrElement } from 'shared/libs/randArrElement';
+import { randArrElement } from 'shared/libs/utils/randArrElement';
 
 interface EmojiPickerProps {
 	input: UseInputReturnType<string>

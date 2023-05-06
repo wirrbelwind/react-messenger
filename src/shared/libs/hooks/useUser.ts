@@ -1,8 +1,8 @@
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { authModule } from 'shared/api/firebase'
+import firebase from 'shared/api'
 
 export const useUser = () => {
-	const [user, loading, error] = useAuthState(authModule)
+	const [user, loading, error] = useAuthState(firebase.authModule)
 
 	return {
 		user,

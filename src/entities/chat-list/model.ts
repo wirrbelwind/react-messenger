@@ -6,7 +6,7 @@ import { IChat } from "shared/libs/interfaces/chats"
 import { FirestoreApi } from "shared/api/firestore-api"
 import firebase from 'shared/api/index'
 
-export const useChatList = (userID: string | null) => {
+export const useChatList = (userID: string | undefined) => {
 
 	const hook = useQuery<IChat[]>({
 		enabled: !!userID,

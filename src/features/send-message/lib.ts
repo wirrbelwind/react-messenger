@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addDoc, collection, getDoc } from "firebase/firestore"
-import { db } from "shared/api/firebase"
+import firebase from "shared/api"
 import tanstackConfig from "shared/configs/tanstack.config"
 import { IMessage, IPendingMessage } from "shared/libs/interfaces/messages"
 
 async function sendMessage(msg: IPendingMessage) {
 
-	const msgRef = await addDoc(collection(db, "messages"), msg)
+	const msgRef = await addDoc(collection(firebase.dbModule, "messages"), msg)
 	return (await getDoc(msgRef)).data() as IMessage
 }
 

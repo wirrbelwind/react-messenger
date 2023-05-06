@@ -1,8 +1,8 @@
 import { Avatar, ListItemAvatar, ListItemText } from "@mui/material"
 import { Link } from "react-router-dom"
 import { formatDate } from "shared/libs/utils/formatDate"
-import { IChat } from "shared/libs/interfaces"
 import { ChatName, Container, DateText } from "./styled"
+import { IChat } from "shared/libs/interfaces/chats"
 
 interface Props {
 	viewerID?: string | null
@@ -11,10 +11,10 @@ interface Props {
 
 
 export const ChatBar = ({ viewerID, chat }: Props) => {
-	const date = formatDate(chat.lastMessage?.timestamp.seconds)
+	// const date = formatDate(chat.lastMessage?.timestamp.seconds)
 
-	let lastMsgTxt = chat.lastMessage?.text || ''
-	if (lastMsgTxt && chat.lastMessage?.senderID.id === viewerID) lastMsgTxt = 'You: ' + lastMsgTxt
+	// let lastMsgTxt = chat.lastMessage?.text || ''
+	// if (lastMsgTxt && chat.lastMessage?.senderID.id === viewerID) lastMsgTxt = 'You: ' + lastMsgTxt
 
 	return (
 		<Container
@@ -29,15 +29,15 @@ export const ChatBar = ({ viewerID, chat }: Props) => {
 			{/* column of primary text: name of chat and text of message */}
 			<ListItemText
 				primary={<ChatName>{chat.name}</ChatName>}
-				secondary={chat.lastMessage?.text}
+			// secondary={chat.lastMessage?.text}
 			/>
-			{
+			{/* {
 				chat.lastMessage &&
 				<ListItemText
 					primary={<DateText>{date}</DateText>}
 					secondary={chat.lastMessage?.status}
 				/>
-			}
+			} */}
 		</Container >
 	)
 }

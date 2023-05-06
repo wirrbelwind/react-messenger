@@ -8,7 +8,7 @@ export type ChatType = 'group' | 'direct'
 export interface IBaseChat {
 	id: string
 	type: 'direct' | 'group'
-	usersID: DocumentReference<IUser>[]
+	users: DocumentReference<IUser>[]
 }
 
 export type IChat = IPrivateChat | IGroupChat
@@ -23,7 +23,7 @@ export interface IPrivateChat extends IBaseChat, IPrivateChatData {
 export interface IPrivateChatData {
 	name: string
 	photoURL?: string
-	companion: DocumentReference
+	companion: DocumentReference<IUser>
 }
 
 // group chat
@@ -34,5 +34,7 @@ export interface IGroupChatData {
 	name: string
 	photoURL?: string
 	descr?: string
-	owner: DocumentReference
+	owner: DocumentReference<IUser>
 }
+
+export type WithoutID<T> = Omit<T, 'id'>

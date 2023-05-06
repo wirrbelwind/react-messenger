@@ -15,27 +15,27 @@ export class FirestoreApi {
 	constructor(firestore: Firestore) {
 		this.db = firestore
 	}
+	public getDocRef<T extends collectionType>(collectionName: collectionName, documentId: string) {
+		return doc(this.db, collectionName, documentId).withConverter(converter<T>())
+	}
 
 	public async readOneByID<T extends collectionType>(collectionName: collectionName, documentId: string): Promise<T | undefined> {
-		const docRef = doc(this.db, collectionName, documentId);
+		const docRef = doc(this.db, collectionName, documentId).withConverter(converter<T>())
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
-			const result = { id: documentId, ...docSnap.data() };
-			return result as T;
+			const result = docSnap.data() 
+			return result;
 		}
 	}
 
 	public async readOneByQuery<T extends collectionType>(collectionName: collectionName, ...queryConstraints: QueryConstraint[]) {
-		const q = query(collection(this.db, collectionName), ...queryConstraints, limit(1));
+		const q = query(collection(this.db, collectionName), ...queryConstraints, limit(1)).withConverter(converter<T>())
 
 		const querySnapshot = await getDocs(q);
 		const doc = querySnapshot.docs[0]
 
-		const result = {
-			...doc.data(),
-			id: doc.id
-		}
-		return result as T
+		const result = doc.data()
+		return result
 	}
 
 	public async readMany<T extends collectionType>(collectionName: collectionName, ...queryConstraints: QueryConstraint[]): Promise<T[]> {

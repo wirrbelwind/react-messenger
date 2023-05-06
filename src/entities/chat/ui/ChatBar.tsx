@@ -14,6 +14,8 @@ export const CurrentChatBar = (props: CurrentChatBarProps) => {
 		<Paper>
 			<AvatarChat name={chat.name} src={chat.photoURL} />
 			<Typography>{chat.name}</Typography>
+			<div>{chat.type}</div>
+			<div>{chat.users.map(user => user.id)}</div>
 		</Paper>
 	)
 }

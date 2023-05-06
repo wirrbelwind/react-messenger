@@ -3,10 +3,11 @@ import { EmojiPicker } from "features/emoji-picker";
 import { MsgInput } from "features/send-message";
 import { doc, Timestamp } from "firebase/firestore";
 import { FC } from "react";
-import { db, getUser } from "shared/api/firebase";
 import useInput from "shared/libs/hooks/useInput";
-import { IPendingMessage } from "shared/libs/interfaces";
 import SendIcon from '@mui/icons-material/Send';
+import firebase from "shared/api";
+import { useUser } from "shared/libs/hooks/useUser";
+import { IPendingMessage } from "shared/libs/interfaces/messages";
 
 interface Props extends BoxProps {
 	chatID: string
@@ -20,16 +21,17 @@ export const CreateMessage: FC<Props> = ({
 	withSubmitBtn = true
 }) => {
 	const input = useInput<string>('')
+	const {user} = useUser()
 
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault()
-		const uid = getUser()?.uid
+		const uid = user?.uid
 		if (!input.value || !uid) return;
 
 		// sendMessage(chatID, input.value)
 		const newMsg: IPendingMessage = {
-			chatID: doc(db, 'chats', chatID),
-			senderID: doc(db, 'users', uid),
+			chatID: doc(firebase.dbModule, 'chats', chatID),
+			senderID: doc(firebase.dbModule, 'users', uid),
 			status: 'unread',
 			text: input.value,
 			timestamp: Timestamp.now()

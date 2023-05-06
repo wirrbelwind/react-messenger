@@ -10,16 +10,16 @@ import { useCreateMessage } from "features/send-message/lib";
 
 
 export const ChatPage = () => {
-	const chatID = useParams<'chatID'>().chatID ?? null
+	const chatID = useParams<'chatID'>().chatID
 
-	const sendMsg = useCreateMessage(chatID)
-	const [queue, setQueue] = useState<IPendingMessage[]>([])
+	// const sendMsg = useCreateMessage(chatID)
+	// const [queue, setQueue] = useState<IPendingMessage[]>([])
 
-	const addMessage = async (newMsg: IPendingMessage) => {
-		setQueue(prev => [...prev, newMsg])
-		await sendMsg.mutateAsync({ msg: newMsg })
-		setQueue(prev => prev.filter(msg => msg.timestamp.toMillis() !== newMsg.timestamp.toMillis()))
-	}
+	// const addMessage = async (newMsg: IPendingMessage) => {
+	// 	setQueue(prev => [...prev, newMsg])
+	// 	await sendMsg.mutateAsync({ msg: newMsg })
+	// 	setQueue(prev => prev.filter(msg => msg.timestamp.toMillis() !== newMsg.timestamp.toMillis()))
+	// }
 	// queue logic
 
 	const isChat = !!chatID
@@ -27,14 +27,14 @@ export const ChatPage = () => {
 		<ChatIDContext chatID={chatID}>
 			<GridContainer container>
 
-				<Grid
+				{/* <Grid
 					item
 					xs={4}
 					component={Sidebar}
 					title="Chats"
 					withNavigation={true}
 					body={<ChatList />}
-				/>
+				/> */}
 
 				<Grid
 					item
@@ -46,15 +46,15 @@ export const ChatPage = () => {
 					{isChat && <>
 						<Header chatID={chatID} />
 
-						<Messages
+						{/* <Messages
 							chatID={chatID}
 							msgQueue={queue}
-						/>
+						/> */}
 
-						<CreateMsgFooter
+						{/* <CreateMsgFooter
 							chatID={chatID}
 							sendMsg={addMessage}
-						/>
+						/> */}
 					</>
 					}
 				</Grid>

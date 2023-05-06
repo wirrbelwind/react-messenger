@@ -1,3 +1,3 @@
 export { CurrentChatBar } from "./ui/ChatBar";
 
-export * as currentChatModel from "./model";
+export * as chatModel from "./model";

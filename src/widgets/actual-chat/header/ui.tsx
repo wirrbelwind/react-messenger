@@ -1,5 +1,5 @@
 import { Box, BoxProps, Typography } from '@mui/material'
-import { CurrentChatBar, currentChatModel } from 'entities/chat'
+import { CurrentChatBar, chatModel } from 'entities/chat'
 import { FC } from 'react'
 import { styled } from "@mui/material";
 import { useUser } from 'shared/libs/hooks/useUser';
@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
 import firebase from 'shared/api';
-import { useChat2 } from 'entities/chat/model';
+import { useChat } from 'entities/chat/model';
 import { IBaseChat, IGroupChatData } from 'shared/libs/interfaces/chats';
 
 const Container = styled(Box)({
@@ -23,13 +23,12 @@ interface ChatHeaderProps extends BoxProps {
 export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 	const { user } = useUser()
 
-	const chat = useChat2(chatID, user?.uid)
-	if(chat) console.log(chat)
-
+	const { chat, error, loading } = chatModel.useChat(chatID, user?.uid)
+	console.log(chat)
 
 	return (
 		<Container>
-			{/* {chat &&
+			{chat &&
 				<CurrentChatBar chat={chat} />
 			}
 
@@ -38,7 +37,7 @@ export const ChatHeader: FC<ChatHeaderProps> = ({ chatID }) => {
 			}
 			{loading &&
 				<Typography>fetching</Typography>
-			} */}
+			}
 		</Container>
 	)
 }

@@ -9,11 +9,12 @@ export interface IBaseChat {
 	id: string
 	type: 'direct' | 'group'
 	usersID: DocumentReference<IUser>[]
-	lastMsg?: IMessage
 }
 
 export type IChat = IPrivateChat | IGroupChat
-export type IChatWithoutLastMsg = Omit<IChat, 'lastMsg'>
+export interface IChatWithLastMsg extends IBaseChat {
+	lastMsg?: IMessage
+}
 
 // private chat
 export interface IPrivateChat extends IBaseChat, IPrivateChatData {

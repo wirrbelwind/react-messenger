@@ -1,4 +1,4 @@
-import { DocumentReference, Firestore, QueryConstraint, Unsubscribe, collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, query } from "firebase/firestore";
+import { CollectionReference, DocumentReference, Firestore, QueryConstraint, Unsubscribe, collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, query } from "firebase/firestore";
 import { IBaseChat, IGroupChat, IGroupChatData, IPrivateChat, IPrivateChatData, WithoutID } from "shared/libs/interfaces/chats";
 import { IMessage } from "shared/libs/interfaces/messages";
 import { IUser } from "shared/libs/interfaces/users";
@@ -18,11 +18,7 @@ export class FirestoreApi {
 	}
 
 	public getDocRef<T extends collectionType>(collectionName: collectionName, documentId: string) {
-		console.log('start')
-
 		const result = doc(this.db, collectionName, documentId)
-		// .withConverter(converter<T>())
-		console.log('end');
 
 		return result as DocumentReference<WithoutID<T>>
 	}
@@ -58,7 +54,7 @@ export class FirestoreApi {
 	// }
 
 	public collection<T extends collectionType>(collectionName: collectionName) {
-		const coll = collection(this.db, collectionName).withConverter(converter<T>())
-		return coll;
+		const coll = collection(this.db, collectionName)
+		return coll as CollectionReference<WithoutID<T>>
 	}
 }

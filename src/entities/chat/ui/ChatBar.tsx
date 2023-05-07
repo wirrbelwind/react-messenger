@@ -1,21 +1,18 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-import { isGroupChat } from "shared/libs/interfaces/helpers/isGroupChat";
-import { isPrivateChat } from "shared/libs/interfaces/helpers/isPrivateChat";
+import { Paper, Typography } from '@mui/material'
 import AvatarChat from "./AvatarChat";
 import { IChat } from "shared/libs/interfaces/chats";
 
-interface CurrentChatBarProps {
+interface ChatInfoProps {
 	chat: IChat
 }
-export const CurrentChatBar = (props: CurrentChatBarProps) => {
+export const ChatInfo = (props: ChatInfoProps) => {
 	const { chat } = props
 
 	return (
 		<Paper>
 			<AvatarChat name={chat.name} src={chat.photoURL} />
 			<Typography>{chat.name}</Typography>
-			<div>{chat.type}</div>
-			<div>{chat.users.map(user => user.id)}</div>
+			<Typography>{chat.users.length} участников(-а)</Typography>
 		</Paper>
 	)
 }

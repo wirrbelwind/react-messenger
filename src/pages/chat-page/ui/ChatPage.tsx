@@ -7,11 +7,12 @@ import { ChatContainer, CreateMsgFooter, GridContainer, Header, Messages } from 
 import { NotChatAlert } from "./NotChatAlert";
 import { useState } from 'react';
 import { useCreateMessage } from "features/send-message/lib";
+import { useUser } from "shared/libs/hooks/useUser";
 
 
 export const ChatPage = () => {
 	const chatID = useParams<'chatID'>().chatID
-
+	const { user } = useUser()
 	// const sendMsg = useCreateMessage(chatID)
 	// const [queue, setQueue] = useState<IPendingMessage[]>([])
 
@@ -27,14 +28,14 @@ export const ChatPage = () => {
 		<ChatIDContext chatID={chatID}>
 			<GridContainer container>
 
-				{/* <Grid
+				<Grid
 					item
 					xs={4}
 					component={Sidebar}
 					title="Chats"
 					withNavigation={true}
-					body={<ChatList />}
-				/> */}
+					body={user?.uid && <ChatList userID={user.uid} />}
+				/>
 
 				<Grid
 					item

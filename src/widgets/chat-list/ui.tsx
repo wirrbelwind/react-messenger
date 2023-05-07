@@ -2,15 +2,25 @@ import { Box } from "@mui/material"
 import { chatListModel } from "entities/chat-list"
 import { ChatBar } from "entities/chat-list/ui/ChatBar"
 import { useUser } from "shared/libs/hooks/useUser"
+import { ChatTile } from "widgets/chat-tile/ui"
 
-export const ChatList = () => {
-	const { user } = useUser()
+interface ChatListProps {
+	userID: string
+}
 
-	const chatList = chatListModel.useChatList(user?.uid)
+export const ChatList = (props: ChatListProps) => {
 
+	const { userID } = props
+
+	const IDs = chatListModel.useIDs(userID)
+	console.log(IDs);
+	
 	return (
 		<Box>
-			{chatList.isSuccess &&
+			{
+				IDs.data?.map(id => <ChatTile id={id} key={id} />)
+			}
+			{/* {chatList.isSuccess &&
 				chatList.data.map(chat =>
 					<ChatBar
 						key={chat.id}
@@ -24,7 +34,7 @@ export const ChatList = () => {
 			}
 			{chatList.isLoading &&
 				<h1>Loading</h1>
-			}
+			} */}
 		</Box>
 	)
 }

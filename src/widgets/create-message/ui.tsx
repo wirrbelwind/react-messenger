@@ -53,7 +53,7 @@ export const CreateMessageWidget: FC<Props> = ({
 				alignItems: 'stretch'
 			}}>
 
-			<EmojiPickerFeature input={input} />
+			<EmojiPickerFeature onSelect={(emoji) => { input.setValue(prev => prev + emoji.native) }} />
 			<MsgInput input={input} />
 
 			{

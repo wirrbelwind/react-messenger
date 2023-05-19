@@ -2,19 +2,16 @@ import { Button, Popover } from '@mui/material';
 import React from 'react';
 import emojiDataSet from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { UseInputReturnType } from 'shared/libs/hooks/useInput';
 import { useEmojiPicker } from '../model/useEmojiPicker';
-
-export interface IEmoji {
-	native: string
-}
+import { IEmoji } from '../model';
 
 interface EmojiPickerFeatureProps {
-	input: UseInputReturnType<string>
+	// input: UseInputReturnType<string>
+	onSelect: (emoji: IEmoji) => void
 }
 
 export const EmojiPickerFeature = (props: EmojiPickerFeatureProps) => {
-	const {input} = props
+	const {onSelect} = props
 
 	const { anchorEl, handleClick, handleClose, label, isOpened, switchEmojiLabel, id } = useEmojiPicker()
 
@@ -46,7 +43,7 @@ export const EmojiPickerFeature = (props: EmojiPickerFeatureProps) => {
 			>
 				<Picker
 					data={emojiDataSet}
-					onEmojiSelect={(emoji) => input.setValue(text => text + emoji.native)}
+					onEmojiSelect={onSelect}
 				/>
 			</Popover>
 		</>

@@ -1,1 +1,0 @@
-export * as chatListModel from './model'

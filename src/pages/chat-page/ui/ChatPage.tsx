@@ -1,65 +1,55 @@
 import { Grid } from "@mui/material";
-import { ChatList } from "widgets/chat-list";
-import { Sidebar } from "widgets/sidebar";
 import { useParams } from "react-router";
-import { ChatIDContext } from "shared/providers/ChatContext";
 import { ChatContainer, CreateMsgFooter, GridContainer, Header, Messages } from "./styled";
 import { NotChatAlert } from "./NotChatAlert";
-import { useState } from 'react';
+import { userModel } from "entities/user";
+import { SidebarWidget } from 'widgets/sidebar'
+import { ChatListWidget } from "widgets/chat-list";
 import { useCreateMessage } from "features/send-message/lib";
-import { useUser } from "shared/libs/hooks/useUser";
-
+import { IPendingMessage } from "shared/libs/interfaces/messages";
+import { useState } from 'react'
 
 export const ChatPage = () => {
 	const chatID = useParams<'chatID'>().chatID
-	const { user } = useUser()
-	// const sendMsg = useCreateMessage(chatID)
-	// const [queue, setQueue] = useState<IPendingMessage[]>([])
+	const { user } = userModel.useUser()
+	const sendMsg = useCreateMessage(chatID)
+	const [queue, setQueue] = useState<IPendingMessage[]>([])
 
-	// const addMessage = async (newMsg: IPendingMessage) => {
-	// 	setQueue(prev => [...prev, newMsg])
-	// 	await sendMsg.mutateAsync({ msg: newMsg })
-	// 	setQueue(prev => prev.filter(msg => msg.timestamp.toMillis() !== newMsg.timestamp.toMillis()))
-	// }
+	const addMessage = async (newMsg: IPendingMessage) => {
+		setQueue(prev => [...prev, newMsg])
+		await sendMsg.mutateAsync({ msg: newMsg })
+		setQueue(prev => prev.filter(msg => msg.timestamp.toMillis() !== newMsg.timestamp.toMillis()))
+	}
 	// queue logic
 
-	const isChat = !!chatID
+	const isChatExists = !!chatID
 	return (
-		<ChatIDContext chatID={chatID}>
-			<GridContainer container>
+		<GridContainer container>
 
-				<Grid
-					item
-					xs={4}
-					component={Sidebar}
-					title="Chats"
-					withNavigation={true}
-					body={user?.uid && <ChatList userID={user.uid} />}
-				/>
+			<Grid
+				item
+				xs={4}
+				component={SidebarWidget}
+				title="Chats"
+				body={user?.uid && <ChatListWidget userID={user.uid} />}
+			/>
 
-				<Grid
-					item
-					xs={7}
-					component={ChatContainer}
-				>
-					{!chatID && <NotChatAlert />}
+			<Grid item xs={7}>
+				<ChatContainer>
+					{!isChatExists && <NotChatAlert />}
 
-					{isChat && <>
+					{isChatExists && <>
 						<Header chatID={chatID} />
+						<Messages chatID={chatID} />
 
-						{/* <Messages
-							chatID={chatID}
-							msgQueue={queue}
-						/> */}
-
-						{/* <CreateMsgFooter
+						<CreateMsgFooter
 							chatID={chatID}
 							sendMsg={addMessage}
-						/> */}
+						/>
 					</>
 					}
-				</Grid>
-			</GridContainer >
-		</ChatIDContext>
+				</ChatContainer>
+			</Grid>
+		</GridContainer >
 	)
 }

@@ -1,40 +1,26 @@
 import { Box } from "@mui/material"
-import { chatListModel } from "entities/chat-list"
-import { ChatBar } from "entities/chat-list/ui/ChatBar"
-import { useUser } from "shared/libs/hooks/useUser"
-import { ChatTile } from "widgets/chat-tile/ui"
+import { chatModel } from "entities/chat"
 
-interface ChatListProps {
+import { ChatTileWidget } from "widgets/chat-tile/ui"
+
+interface ChatListWidgetProps {
 	userID: string
 }
 
-export const ChatList = (props: ChatListProps) => {
-
+export const ChatListWidget = (props: ChatListWidgetProps) => {
 	const { userID } = props
-
-	const IDs = chatListModel.useIDs(userID)
+	const IDs = chatModel.useChatIDs(userID)
 	console.log(IDs);
-	
-	return (
-		<Box>
-			{
-				IDs.data?.map(id => <ChatTile id={id} key={id} />)
-			}
-			{/* {chatList.isSuccess &&
-				chatList.data.map(chat =>
-					<ChatBar
-						key={chat.id}
-						chat={chat}
-						viewerID={user?.uid}
-					/>
-				)
-			}
-			{chatList.isError &&
-				<h1>Error</h1>
-			}
-			{chatList.isLoading &&
-				<h1>Loading</h1>
-			} */}
-		</Box>
-	)
+
+
+	return (<Box>
+		{IDs.data && IDs.data.length > 0 &&
+			IDs.data.map(id => <ChatTileWidget chatID={id} userID={userID} key={id} />)
+		}
+		{IDs.data && IDs.data.length === 0 &&
+			<div>Нет чатов</div>
+		}
+		{IDs.loading && <div>loadind</div>}
+		{IDs.error && <div>{IDs.error.toString()}</div>}
+	</Box>)
 }

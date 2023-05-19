@@ -5,27 +5,17 @@ import { BurgerNavigation } from "widgets/burger-navigation";
 
 interface Props {
 	title?: string
-	withSearch?: boolean
-	withBackButton?: boolean
-	withNavigation?: boolean
 	body?: React.ReactNode
 }
-export const Sidebar = React.memo(({ title, withSearch, body, withNavigation }: Props) => {
+export const SidebarWidget = React.memo(({ title, withSearch, body, withNavigation }: Props) => {
 	const history = useNavigate()
 
 	return (
 		<Box>
-			{
-				withNavigation &&
-				<BurgerNavigation />
-			}
-
-			{
-				title && <Typography >{title}</Typography>
-			}
-			{
-				withSearch && <Input type='text' placeholder="Search" fullWidth />
-			}
+			<BurgerNavigation />
+			{title && <Typography >{title}</Typography>}
+			<Input type='text' placeholder="Search" fullWidth />
+			
 			{
 				body
 			}

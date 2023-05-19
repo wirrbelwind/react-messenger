@@ -8,6 +8,6 @@ interface MsgInputProps {
 
 export const MsgInput:FC<MsgInputProps> = ({input}) => {
 	return (
-		<TextField value={input.value} onChange={input.onChange}/>
+		<TextField value={input.value} onChange={input.onChange} fullWidth/>
 	)
 }

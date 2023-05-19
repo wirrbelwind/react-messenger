@@ -1,1 +1,1 @@
-export {EmojiPicker} from './ui'
+export { EmojiPickerFeature } from './ui/EmojiPicker'

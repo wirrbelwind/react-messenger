@@ -1,22 +1,23 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { addDoc, collection, getDoc } from "firebase/firestore"
 import firebase from "shared/api"
 import tanstackConfig from "shared/configs/tanstack.config"
 import { IMessage, IPendingMessage } from "shared/libs/interfaces/messages"
 
-async function sendMessage(msg: IPendingMessage) {
+async function sendMessage(msg: IPendingMessage, chatID: string | undefined) {
+	if(!chatID) throw new Error('Chat doesn\'t exist.')
 
-	const msgRef = await addDoc(collection(firebase.dbModule, "messages"), msg)
-	return (await getDoc(msgRef)).data() as IMessage
+	const msgRef = firebase.firestoreAPI.collection<IMessage>('messages')
+	await addDoc(msgRef, msg)
 }
 
-export function useCreateMessage(chatID: string) {
+export function useCreateMessage(chatID: string | undefined) {
 	return useMutation<
-		IMessage | undefined, //returns
+		void, //returns
 		unknown, // error
 		{ msg: IPendingMessage } // mutate vars
 	>({
-		mutationFn: ({ msg }) => sendMessage(msg),
+		mutationFn: ({ msg }) => sendMessage(msg, chatID),
 		mutationKey: tanstackConfig.MESSAGES.SEND(chatID),
 	})
 }

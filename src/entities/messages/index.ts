@@ -1,2 +1,2 @@
-export { Message } from "./ui";
+export { MessageEntity } from "./ui/Message";
 export * as messagesModel from './model'

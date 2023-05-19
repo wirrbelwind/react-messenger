@@ -1,7 +1,7 @@
 import { styled, Grid, Box } from "@mui/material"
-import { CreateMessage } from "widgets/actual-chat/create-message"
-import { ChatHeader } from "widgets/actual-chat/header"
-import { ChatMessages } from "widgets/actual-chat/messages"
+import { CreateMessageWidget } from "widgets/create-message"
+import { ChatHeaderWidget } from "widgets/header"
+import { ChatMessagesWidget } from "widgets/messages"
 
 // styled
 export const GridContainer = styled(Grid)({
@@ -10,16 +10,17 @@ export const GridContainer = styled(Grid)({
 export const ChatContainer = styled(Grid)({
 	display: 'flex',
 	flexDirection: 'column',
-	height: '100%'
+	// flexBasis: '100%'
 })
-export const Header = styled(ChatHeader)({
+export const Header = styled(ChatHeaderWidget)({
 	flexGrow: 0,
 	flexShrink: 1
 })
-export const Messages = styled(ChatMessages)({
-	flexGrow: 1
+export const Messages = styled(ChatMessagesWidget)({
+	flexGrow: 1,
+	flexShrink: 0
 })
-export const CreateMsgFooter = styled(CreateMessage)({
+export const CreateMsgFooter = styled(CreateMessageWidget)({
 	flexGrow: 0,
 	flexShrink: 1
 })

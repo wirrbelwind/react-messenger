@@ -1,20 +1,22 @@
 import { chatModel } from "entities/chat";
-import { ChatBar } from "entities/chat-list/ui/ChatBar";
-import { useUser } from "shared/libs/hooks/useUser";
+import { ChatBarEntity } from "entities/chat/ui/ChatBar/ChatBar";
+import { messagesModel } from "entities/messages";
 
-interface ChatTileProps {
-	id: string
+interface ChatTileWidgetProps {
+	chatID: string
+	userID: string
 }
 
-export const ChatTile = (props: ChatTileProps) => {
-	const { id } = props
-	const { user } = useUser()
+export const ChatTileWidget = (props: ChatTileWidgetProps) => {
+	const { chatID, userID } = props
 
-	const chat = chatModel.useChat(id, user?.uid)
-
+	const chat = chatModel.useChat(chatID, userID)
+	const lastMsg = messagesModel.useLastMsg(chatID)
+	console.log(lastMsg);
+	
 	return (<>
 		{
-			chat?.chat && <ChatBar chat={chat.chat}/>
+			chat?.chat && <ChatBarEntity chat={chat.chat} />
 		}
 	</>)
 }

@@ -10,6 +10,7 @@ export const BurgerNavigation = () => {
 	const [open, setOpen] = useState(false)
 	const toggleMenu = () => setOpen(prev => !prev)
 
+	const [signOut] = userModel.useSignOut()
 	return (<>
 
 		<IconButton
@@ -30,7 +31,7 @@ export const BurgerNavigation = () => {
 					<ListItemText> {nav.label} </ListItemText>
 				</ListItem>)
 			}
-			<button onClick={() => {userModel.useLogout()}}>Log Out</button>
+			<button onClick={() => signOut()}>Log Out</button>
 
 		</SwipeableDrawer>
 

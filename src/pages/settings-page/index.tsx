@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { useChatID } from 'shared/providers/ChatContext';
-import { Sidebar } from 'widgets/sidebar';
+import { SidebarWidget } from 'widgets/sidebar';
 
 
 export const SettingsPage = () => {
@@ -9,7 +9,7 @@ export const SettingsPage = () => {
 			<Grid
 				item
 				xs={4}
-				component={Sidebar}
+				component={SidebarWidget}
 				withNavigation={true}
 			/>
 			<Grid item xs={10}>settings</Grid>

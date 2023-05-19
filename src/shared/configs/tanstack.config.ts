@@ -12,7 +12,7 @@ export default {
 	},
 	MESSAGES: {
 		GET: (chatID: string) => ['messages', 'get', chatID],
-		SEND: (chatID: string) => ['messages', 'send', chatID]
+		SEND: (chatID: string | undefined) => ['messages', 'send', chatID]
 	},
 	CHAT: {
 		GET: (chatID: string) => ['chat', 'get', chatID]

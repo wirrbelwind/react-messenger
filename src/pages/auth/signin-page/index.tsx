@@ -1,10 +1,10 @@
-import { LoginForm } from "features/login-form"
+import { LoginFormFeature } from "features/login-form"
 import { FormContainer } from "shared/ui/FormContainer"
 
 export const SigninPage = () => {
 	return (
 		<FormContainer>
-			<LoginForm />
+			<LoginFormFeature />
 		</FormContainer>
 	)
 }

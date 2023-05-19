@@ -3,8 +3,8 @@ import { DocumentReference, Timestamp } from "firebase/firestore"
 export interface IMessage {
 	id: string
 	text: string
-	senderID: DocumentReference
-	chatID: DocumentReference
+	sender: DocumentReference
+	chat: DocumentReference
 	status: 'read' | 'unread'
 	timestamp: Timestamp
 }

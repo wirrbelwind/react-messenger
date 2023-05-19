@@ -1,3 +1,3 @@
-export { ChatInfo } from "./ui/ChatBar";
+export { ChatInfoEntity } from "./ui/ChatInfo";
 
-export * as chatModel from "./model";
+export * as chatModel from "./model/";

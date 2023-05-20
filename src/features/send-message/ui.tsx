@@ -1,13 +1,16 @@
 import { TextField } from "@mui/material"
-import { FC } from "react"
-import { UseInputReturnType } from "shared/libs/hooks/useInput"
+import React, { FC } from "react"
 
 interface MsgInputProps {
-	input: UseInputReturnType<string>
+	// input: UseInputReturnType<string>
+	msgText: string
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const MsgInput:FC<MsgInputProps> = ({input}) => {
+export const MsgInput:FC<MsgInputProps> = (props) => {
+	const {msgText, onChange} = props
+
 	return (
-		<TextField value={input.value} onChange={input.onChange} fullWidth/>
+		<TextField value={msgText} onChange={onChange} fullWidth/>
 	)
 }

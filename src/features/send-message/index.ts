@@ -1,3 +1,2 @@
-export { MsgInput } from './ui'
-
+export * from './ui'
 export * as sendMsgModel from './model'

@@ -5,7 +5,7 @@ import { NotChatAlert } from "./NotChatAlert";
 import { userModel } from "entities/user";
 import { SidebarWidget } from 'widgets/sidebar'
 import { ChatListWidget } from "widgets/chat-list";
-import { useCreateMessage } from "features/send-message/lib";
+import { useCreateMessage } from "features/send-message/model/useCreateMessage";
 import { IPendingMessage } from "shared/libs/interfaces/messages";
 import { useState } from 'react'
 

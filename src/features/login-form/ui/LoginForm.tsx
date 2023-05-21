@@ -4,26 +4,42 @@ import { userModel } from "entities/user"
 import { useNavigate } from "react-router"
 import useInput from "shared/libs/hooks/useInput"
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { UserCredential } from "firebase/auth"
+import { IOnSubmit, useRedirectOnSignIn } from "../model"
+import styled from "@emotion/styled"
 
-export const LoginFormFeature = () => {
-	const navigate = useNavigate()
+interface LoginFormFeatureProps {
+	onSubmit: IOnSubmit
+}
+
+const FormContainer = styled(Paper)({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: '10px',
+	background: 'white',
+	padding: '20px',
+	borderRadius: '5px'
+})
+
+export const LoginFormFeature = (props: LoginFormFeatureProps) => {
+	const { onSubmit } = props
+
 	const login = useInput<string>('')
 	const pwd = useInput<string>('')
 
 	const [signin, signedInUser, signinLoading, signinError] = userModel.useSigninEmailPwd()
 
-	const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+	const handleSubmit: React.FormEventHandler<HTMLDivElement> = async (e) => {
 		e.preventDefault()
-		signin(login.value, pwd.value)
+
+		onSubmit(login.value, pwd.value, signin)
 	}
 
-	if (signedInUser) navigate('/', { replace: true })
+	useRedirectOnSignIn(signedInUser, '/')
 
 	return (
-		<Paper
-			component={'form'}
-			sx={{ display: 'flex', flexDirection: 'column', gap: '10px', background: 'white', padding: '20px', borderRadius: '5px' }}
-			onSubmit={onSubmit}
+		<FormContainer
+			onSubmit={handleSubmit}
 		>
 
 			<TextField
@@ -53,6 +69,6 @@ export const LoginFormFeature = () => {
 			>
 				Sign In
 			</LoadingButton>
-		</Paper>
+		</FormContainer>
 	)
 }

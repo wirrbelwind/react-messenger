@@ -1,4 +1,4 @@
-import { Box, BoxProps, IconButton } from "@mui/material"
+import { Box, BoxProps, IconButton, Paper } from "@mui/material"
 import { MsgInput } from "features/send-message";
 import useInput from "shared/libs/hooks/useInput";
 import SendIcon from '@mui/icons-material/Send';
@@ -14,7 +14,7 @@ interface CreateMessageWidgetProps extends BoxProps {
 	withSubmitBtn?: boolean
 }
 
-const Container = styled(Box)({
+const Container = styled(Paper)({
 	borderTop: 1,
 	display: 'flex',
 	justifyContent: 'space-between',
@@ -27,16 +27,16 @@ export const CreateMessageWidget = (props: CreateMessageWidgetProps) => {
 	const input = useInput<string>('')
 	const { user } = userModel.useUser()
 
-	const handleSubmit: React.FormEventHandler<HTMLDivElement> = (e) => {
+	const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault()
 		onSubmit(user, input, sendMsg, chatID)
 	}
 
 	return (
-		<Container onSubmit={handleSubmit}>
+		<Container component='form' onSubmit={handleSubmit} >
 
 			<EmojiPickerFeature onSelect={(emoji) => { input.setValue(prev => prev + emoji.native) }} />
-			
+
 			<MsgInput msgText={input.value} onChange={input.onChange} />
 
 			{withSubmitBtn &&

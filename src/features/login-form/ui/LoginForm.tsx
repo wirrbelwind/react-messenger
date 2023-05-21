@@ -29,7 +29,7 @@ export const LoginFormFeature = (props: LoginFormFeatureProps) => {
 
 	const [signin, signedInUser, signinLoading, signinError] = userModel.useSigninEmailPwd()
 
-	const handleSubmit: React.FormEventHandler<HTMLDivElement> = async (e) => {
+	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
 
 		onSubmit(login.value, pwd.value, signin)
@@ -39,6 +39,7 @@ export const LoginFormFeature = (props: LoginFormFeatureProps) => {
 
 	return (
 		<FormContainer
+			component='form'
 			onSubmit={handleSubmit}
 		>
 

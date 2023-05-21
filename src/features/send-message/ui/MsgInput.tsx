@@ -2,7 +2,6 @@ import { TextField } from "@mui/material"
 import React, { FC } from "react"
 
 interface MsgInputProps {
-	// input: UseInputReturnType<string>
 	msgText: string
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

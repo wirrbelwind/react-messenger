@@ -1,6 +1,6 @@
 import PathRoutes from "shared/configs/routes.config";
 import { Route, Routes } from "react-router";
-import { SigninPage } from "./auth/signin-page";
+import { SigninPage } from "./auth/signin-page/ui/SigninPage";
 import { SignupPage } from "./auth/signup-page";
 import { ChatPage } from "./chat-page/ui/ChatPage";
 import { SettingsPage } from "./settings-page";

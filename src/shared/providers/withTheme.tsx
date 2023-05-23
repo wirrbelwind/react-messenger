@@ -1,11 +1,10 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { green, lightGreen } from '@mui/material/colors';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { HOC } from 'shared/providers/composeHOCS';
 
 export const theme = createTheme({
   typography: {
-    fontFamily: 'Lato',
+    fontFamily: 'Roboto',
     fontSize: 15,
     fontWeightLight: 300,
     h1: {

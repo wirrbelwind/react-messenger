@@ -1,103 +1,90 @@
-import { Alert, Box, Button, Paper, styled, TextField, Typography } from "@mui/material"
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth"
-// import { useSignupFormSteps } from "../model"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import { FormData } from "../lib"
-import firebase from "shared/api"
+import { Divider, Typography } from "@mui/material"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { IOnSubmit, IRegFormTemplate } from "../model"
+import { userModel } from "entities/user"
+import { Title } from "./Title"
+import { AuthFormContainer } from "shared/ui/Form/AuthFormContainer"
+import { FormError } from "shared/ui/Form/Alerts/FormError"
+import { LoadingButton } from "@mui/lab"
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { InputEmail } from "shared/ui/Form/Inputs/InputEmail"
+import { InputNickname } from "shared/ui/Form/Inputs/InputNickname"
+import { InputPassword } from "shared/ui/Form/Inputs/InputPassword"
+import { InputConfirmPassword } from "shared/ui/Form/Inputs/InputConfirmPassword"
+import SubmitBtn from "shared/ui/SubmitBtn"
+import { useRedirectOnSignIn } from "shared/libs/hooks/useRedirectOnSignIn"
+import { Link } from "react-router-dom"
 
+interface SignUpFormProps {
+	onSubmit: IOnSubmit
+}
 
-const Form = styled(Box)(({ theme }) => ({
-	backgroundColor: theme.palette.background.paper
-}))
-
-export const SignUpForm = () => {
-	const { control, handleSubmit, formState: { errors, } } = useForm<FormData>({
+export const SignUpForm = (props: SignUpFormProps) => {
+	const { control, handleSubmit, watch, formState: { errors } } = useForm<IRegFormTemplate>({
 		defaultValues: {
 			email: '',
-			confirmPwd: '',
-			pwd: '',
 			name: '',
-			photoBase64: '',
-			photoURL: ''
+			pwd: '',
+			confirmPwd: '',
+			photoURL: '',
+			photoBase64: ''
 		}
 	})
 
+	// create user hook
 	const [
 		createUserWithEmailAndPassword,
 		user,
 		loading,
-		error,
-	] = useCreateUserWithEmailAndPassword(firebase.authModule)
+		signUpError,
+	] = userModel.useCreateUserEmailPwd()
 
-	const onSubmit: SubmitHandler<FormData> = fields => {
-		1
+
+	const onSubmit: SubmitHandler<IRegFormTemplate> = (fields) => {
+		const { email, name, pwd } = fields
+		props.onSubmit(email, pwd, name, createUserWithEmailAndPassword)
 	}
 
+	useRedirectOnSignIn(user, '/')
+
 	return (
-		<Form
-			component='form'
-			onSubmit={handleSubmit(onSubmit)}
-		>
+		<AuthFormContainer>
+			<Title>Sign Up</Title>
+			<Divider />
+
+			<InputEmail controller={control} />
+			{errors.email && <FormError>Email is wrong</FormError>}
+
+			<InputNickname controller={control} />
+			{errors.name && <FormError>Name is not correct</FormError>}
+
+			<InputPassword controller={control} />
+			{errors.pwd && <FormError>Password is not correct</FormError>}
+
+			<InputConfirmPassword controller={control} watch={watch} />
+			{errors.confirmPwd && <FormError>Confirmed password is not correct</FormError>}
+
+
+			{ signUpError && <FormError>{signUpError.message}</FormError>}
+
 			<Typography
-				textAlign='center'
-				variant="h3">
-				Sign Up
+				variant="subtitle1"
+				component={Link}
+				to='/signin'
+				color='primary.dark'
+				fontSize={18}
+			>
+				Don't have an account? Sign Up!
 			</Typography>
 
-			<Controller
-				rules={{
-					required: true,
-					pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-				}}
-				name="email"
-				control={control}
-				render={({ field }) => <TextField {...field} label='Email' variant='filled' />}
-			/>
-			{errors.email && <Alert severity="error">Почта указана некорректно</Alert>}
-
-			<Controller
-				rules={{
-					required: true,
-					minLength: 3,
-					maxLength: 30
-				}}
-				name="name"
-				control={control}
-				render={({ field }) => <TextField {...field} label='Nickname' variant='filled' />}
-			/>
-			{errors.name && <Alert severity="error">Имя должно состоять из 3-30 символов</Alert>}
-
-			<Controller
-				rules={{
-					required: true,
-					minLength: 6,
-					maxLength: 50
-				}}
-				name="pwd"
-				control={control}
-				render={({ field }) => <TextField {...field} label='Password' variant='filled' />}
-			/>
-			{errors.pwd && <Alert severity="error">Имя должно состоять из 3-30 символов</Alert>}
-
-			<Controller
-				rules={{
-					required: true,
-					minLength: 6,
-					maxLength: 30,
-				}}
-				name="confirmPwd"
-				control={control}
-				render={({ field }) => <TextField {...field} label='Confirm password' variant='filled' />}
-			/>
-			{errors.confirmPwd && <Alert severity="error">Пароли не совпадают</Alert>}
-
-
-			<Button
-				type='submit'
-				variant='contained'
+			<SubmitBtn
+				onClick={handleSubmit(onSubmit)}
+				loading={loading}
+				disabled={loading}
 			>
-				Create
-			</Button>
-		</Form>
+				Create account
+			</SubmitBtn>
+
+		</AuthFormContainer>
 	)
 }

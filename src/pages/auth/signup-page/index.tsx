@@ -1,10 +1,11 @@
-import { SignUpForm } from "features/reg-form";
-import { FormContainer } from "shared/ui/FormContainer";
+import { SignUpFormFeature } from "features/reg-form";
+import { FormWrapper } from "shared/ui/Form/FormWrapper"
+import { onSubmit } from "./model/IOnSubmit";
 
 export const SignupPage = () => {
 	return (
-		<FormContainer>
-			<SignUpForm />
-		</FormContainer>
+		<FormWrapper>
+			<SignUpFormFeature onSubmit={onSubmit} />
+		</FormWrapper>
 	)
 }

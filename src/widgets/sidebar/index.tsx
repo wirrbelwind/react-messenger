@@ -3,19 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BurgerNavigation } from "widgets/burger-navigation";
 
-interface Props {
+interface SidebarWidgetProps {
 	title?: string
 	body?: React.ReactNode
 }
-export const SidebarWidget = React.memo(({ title, withSearch, body, withNavigation }: Props) => {
-	const history = useNavigate()
+export const SidebarWidget = React.memo((props: SidebarWidgetProps) => {
+	const { title, body } = props
 
 	return (
-		<Box>
+		<Box border='1px solid'>
 			<BurgerNavigation />
 			{title && <Typography >{title}</Typography>}
-			<Input type='text' placeholder="Search" fullWidth />
-			
+
 			{
 				body
 			}

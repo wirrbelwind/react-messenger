@@ -40,7 +40,7 @@ export const ChatPage = () => {
 
 					{isChatExists && <>
 						<Header chatID={chatID} />
-						<Messages chatID={chatID} />
+						<Messages chatID={chatID} messagesQueue={queue} />
 
 						<CreateMsgFooter
 							chatID={chatID}

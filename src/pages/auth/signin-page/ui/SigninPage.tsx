@@ -1,12 +1,11 @@
 import { LoginFormFeature } from "features/login-form"
-import { FormContainer } from "shared/ui/FormContainer"
+import { FormWrapper } from "shared/ui/Form/FormWrapper"
 import { onSignInSubmit } from "../model"
 
 export const SigninPage = () => {
 	return (
-		<FormContainer>
-			<LoginFormFeature onSubmit={onSignInSubmit}/>
-		</FormContainer>
+		<FormWrapper>
+			<LoginFormFeature onSubmit={onSignInSubmit} />
+		</FormWrapper>
 	)
 }
-

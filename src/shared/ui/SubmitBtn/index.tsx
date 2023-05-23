@@ -1,27 +1,26 @@
-import { LoadingButton, LoadingButtonProps } from "@mui/lab";
+import { LoadingButton, LoadingButtonProps } from '@mui/lab';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 
-interface SubmitButtonProps extends LoadingButtonProps {
-	children: string
-	loading?: boolean
-	disabled?: boolean
-}
+// interface SubmitBtnProps extends LoadingButtonProps {
 
-export const SubmitButton = (props: SubmitButtonProps) => {
+// }
+
+// NOTE: switch props to SubmitBtnProps interface after adding new props 
+const SubmitBtn = (props: LoadingButtonProps) => {
 	const { children, ...restProps } = props
 
 	return (
 		<LoadingButton
-			type='submit'
 			fullWidth
 			variant='contained'
 			loadingPosition="end"
 			endIcon={<HowToRegIcon />}
 			loadingIndicator='Loading...'
-
 			{...restProps}
 		>
 			{children}
 		</LoadingButton>
-	)
-}
+	);
+};
+
+export default SubmitBtn;

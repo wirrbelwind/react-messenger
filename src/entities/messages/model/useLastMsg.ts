@@ -21,17 +21,14 @@ export function useLastMsg(chatID: string) {
 	const [lastMsg, setLastMsg] = useState<undefined | IMessage>(undefined)
 
 	useEffect(() => {
-		console.log('USE EFFECT');
-		
 		if (lastMsgArr && lastMsgArr.docs.length > 0) {
 			const msgSnapshot = lastMsgArr.docs[0]
 			if (msgSnapshot.exists()) {
 				const msg: IMessage = { ...msgSnapshot.data(), id: msgSnapshot.id }
 				setLastMsg(msg)
 			}
-
 		}
 	}, [lastMsgArr])
-
-	return [lastMsg, loading, error]
+	
+	return {lastMsg, loading, error}
 }

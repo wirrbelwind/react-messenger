@@ -16,18 +16,12 @@ interface LoginFormFeatureProps {
 
 export const LoginFormFeature = (props: LoginFormFeatureProps) => {
 	const { control, handleSubmit, watch, formState: { errors } } = useForm<ISignInFields>
-		({
-			defaultValues: {
-				email: '',
-				pwd: '',
-			}
-		})
+		({ defaultValues: { email: '', pwd: '', } })
 
 	const [signin, signedInUser, signinLoading, signinError] = userModel.useSigninEmailPwd()
 
 	const onSubmit: SubmitHandler<ISignInFields> = (fields) => {
 		const { email, pwd } = fields
-
 		props.onSubmit(email, pwd, signin)
 	}
 

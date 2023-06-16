@@ -7,17 +7,11 @@ import { SettingsPage } from "./settings-page";
 import { CheckAuthRoute } from "pages/CheckAuthRoute";
 
 export const Routing = () => {
-    return (
-        <Routes>
+    return (<Routes>
             <Route element={<SigninPage />} path={pathRoutes.public.SIGNIN} />
             <Route element={<SignupPage />} path={pathRoutes.public.SIGNUP} />
-
             <Route element={<CheckAuthRoute />}>
                 <Route element={<ChatPage />} path={pathRoutes.private.CHAT} />
                 <Route element={<SettingsPage />} path={pathRoutes.private.SETTINGS} />
             </Route>
-
-            {/* <Route path="*" element={ErrorPage} /> */}
-        </Routes>
-    );
-}
+        </Routes>)}

@@ -1,10 +1,10 @@
-import { Alert, Box } from "@mui/material";
-import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
+import {  Box,  Typography } from "@mui/material";
+import { LogoIcon } from "shared/ui/LogoIcon";
 
 export function NotChatAlert() {
 	return (
-		<Box alignSelf='center' justifySelf='center'>
-			<Alert icon={<EnergySavingsLeafIcon />}>Select chat to start conversation. </Alert>
+		<Box alignSelf='center' margin='auto' justifySelf='center' >
+			<Typography>Select chat to start conversation <LogoIcon width={70} /></Typography>
 		</Box>
 	)
 }

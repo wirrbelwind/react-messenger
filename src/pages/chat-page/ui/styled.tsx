@@ -5,22 +5,23 @@ import { ChatMessagesWidget } from "widgets/messages"
 
 // styled
 export const GridContainer = styled(Grid)({
-	// height: '100dvh'
+	height: '100dvh'
 })
 export const ChatContainer = styled(Grid)({
 	display: 'flex',
 	flexDirection: 'column',
-	height: '100dvh'
+	justifyContent: "space-between",
+	height: '100dvh',
 })
 export const Header = styled(ChatHeaderWidget)({
 	flexGrow: 0,
-	flexShrink: 1
+	flexShrink: 1,
 })
 export const Messages = styled(ChatMessagesWidget)({
 	flexGrow: 1,
-	flexShrink: 0
+	flexShrink: 0,
 })
 export const CreateMsgFooter = styled(CreateMessageWidget)({
 	flexGrow: 0,
-	flexShrink: 1
+	flexShrink: 1,
 })

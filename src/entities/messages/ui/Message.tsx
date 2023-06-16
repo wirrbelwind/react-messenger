@@ -15,6 +15,8 @@ export const MessageEntity = ({
 	isPending = false,
 	owned
 }: MessageProps) => {
+	const timestamp = formatDate(message.timestamp.toMillis())
+
 	return (
 		<Box
 			component='button'
@@ -36,7 +38,9 @@ export const MessageEntity = ({
 					<Typography textAlign='left' fontSize='17px' fontWeight='500'>{message.text}</Typography>
 				}
 				secondary={
-					<Typography textAlign='right' fontSize='13px' fontWeight='500'>{formatDate(message.timestamp.toMillis())}</Typography>
+					<Typography textAlign='right' fontSize='13px' fontWeight='500'>
+						{timestamp}
+					</Typography>
 				}
 			/>
 

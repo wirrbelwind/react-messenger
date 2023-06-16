@@ -8,7 +8,6 @@ export const useChat = (chatID: string, viewerID: string | undefined) => {
 	const baseChatStale = firebase.firestoreAPI.getDocRef<IBaseChat>('chat_base', chatID)
 	const [baseChat, baseChatLoading, baseChatError] = useDocument(baseChatStale)
 	const baseChatData = baseChat?.data()
-	// console.log(baseChatStale,baseChatData)
 
 	// group chat
 	const groupChatStale = firebase.firestoreAPI.getDocRef<IGroupChatData>('chat_group', chatID)

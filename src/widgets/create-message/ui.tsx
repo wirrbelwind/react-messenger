@@ -23,27 +23,15 @@ const Container = styled(Paper)({
 
 export const CreateMessageWidget = (props: CreateMessageWidgetProps) => {
 	const { chatID, sendMsg, withSubmitBtn } = props
-
 	const input = useInput<string>('')
 	const { user } = userModel.useUser()
-
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault()
 		onSubmit(user, input, sendMsg, chatID)
 	}
-
-	return (
-		<Container component='form' onSubmit={handleSubmit} >
-
-			<EmojiPickerFeature onSelect={(emoji) => { input.setValue(prev => prev + emoji.native) }} />
-
-			<MsgInput msgText={input.value} onChange={input.onChange} />
-
-			{withSubmitBtn &&
-				<IconButton type='submit' disabled={!input.value}>
-					<SendIcon />
-				</IconButton>
-			}
-		</Container>
-	)
-}
+	return (<Container component='form' onSubmit={handleSubmit} >
+		<EmojiPickerFeature onSelect={(emoji) => { input.setValue(prev => prev + emoji.native) }} />
+		<MsgInput msgText={input.value} onChange={input.onChange} />
+		{withSubmitBtn &&
+			<IconButton type='submit' disabled={!input.value}><SendIcon /></IconButton>}
+	</Container>)}

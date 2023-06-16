@@ -11,13 +11,10 @@ interface ChatBarEntityProps {
 	chat: IChat
 	lastMsg?: IMessage
 }
-
-
 export const ChatBarEntity = (props: ChatBarEntityProps) => {
 	const { viewerID, chat, lastMsg } = props
 
-	const lastMsgDate = lastMsg ? formatDate(lastMsg?.timestamp.seconds) : undefined
-
+	const lastMsgDate = lastMsg ? formatDate(lastMsg?.timestamp.toMillis()) : null
 	let lastMsgTxt = lastMsg?.text || undefined
 	if (lastMsgTxt && lastMsg?.sender.id === viewerID) lastMsgTxt = `You: ${lastMsgTxt}`
 

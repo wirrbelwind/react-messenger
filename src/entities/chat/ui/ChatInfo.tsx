@@ -14,7 +14,7 @@ export const ChatInfoEntity = (props: ChatInfoEntityProps) => {
 		<Paper>
 			<AvatarChat name={chat.name} src={chat.photoURL} />
 			<Typography>{chat.name}</Typography>
-			<Typography>{chat.users.length} участников(-а)</Typography>
+			<Typography>{chat.users.length} participants</Typography>
 		</Paper>
 	)
 }

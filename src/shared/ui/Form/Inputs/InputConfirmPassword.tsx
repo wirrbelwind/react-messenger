@@ -24,7 +24,7 @@ export const InputConfirmPassword = (props: InputConfirmPasswordProps) => {
 			control={controller}
 
 			render={({ field }) => (
-				<TextField {...field} label={pwdConfig.label} variant='filled' />
+				<TextField {...field} label='Confirm password' variant='filled' />
 			)}
 		/>
 	)

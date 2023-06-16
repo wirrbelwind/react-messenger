@@ -17,13 +17,4 @@ interface ChatHeaderWidgetProps extends BoxProps {
 export const ChatHeaderWidget: FC<ChatHeaderWidgetProps> = ({ chatID }) => {
 	const { user } = userModel.useUser()
 	const { chat, error, loading } = chatModel.useChat(chatID, user?.uid)
-
-	return (
-		<Container>
-			{chat && <>
-				<ChatInfoEntity chat={chat} />
-			</>}
-
-		</Container>
-	)
-}
+	return (<Container>{chat && <><ChatInfoEntity chat={chat} /></>}</Container>)}
